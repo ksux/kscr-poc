@@ -1,0 +1,13 @@
+<p>{{results.length}} course <span ng-pluralize count="results.length" when="{'1':'offering','other':'offerings'}"></span> found</p>
+
+<ol class="ks-cr-COList">
+  <li class="ks-cr-COItem" ng-repeat="co in results">
+    <h3 class="ks-cr-COItem-code"><a ui-sref="app.results.details">{{co.courseOfferingCode}}</a></h3>
+    <p class="ks-cr-COItem-title">{{co.title}}</p>
+    <p class="ks-cr-COItem-credits" ng-bind-html="co | credits"></p>
+    <p class="ks-cr-COItem-time" ng-bind-html="co.scheduleItems | meetingTimes"></p>
+    <p class="ks-cr-COItem-enrollment">{{co.enrollmentCount}}/{{co.maxEnrollmentCount}}</p>
+    <p class="ks-cr-COItem-type">{{co.type}}</p>
+    <p class="ks-cr-COItem-instructor">{{co.instructorNames | instructors}}</p>
+  </li>
+</ol>

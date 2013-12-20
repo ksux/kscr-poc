@@ -1,0 +1,28 @@
+$ns: '.ks-cr-Search';
+
+#{$ns} {
+  border: 1px solid gray;
+  padding: 0 0.5em 0.5em;
+  width: 20em;
+}
+
+#{$ns}-label {
+  display: block;
+  margin: 1em 0 0.5em;
+}
+
+#{$ns}-query {
+  display: table;
+  border-collapse: separate;
+}
+
+#{$ns}-queryInput {
+  display: table-cell;
+  width: 100%;
+}
+
+#{$ns}-queryButton {
+  display: table-cell;
+  //white-space: nowrap;
+  width: 1%;
+}
