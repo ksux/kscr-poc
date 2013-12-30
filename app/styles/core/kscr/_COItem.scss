@@ -1,0 +1,29 @@
+$ns: '.kscr-COItem';
+
+#{$ns} {
+  border-bottom: 1px solid #000;
+}
+
+#{$ns}-header {
+  position: relative;
+}
+
+#{$ns}-code {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#{$ns}-title {
+  
+}
+
+#{$ns}-credits {
+  //float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#{$ns}-body {
+  background-color: #ddd;
+}

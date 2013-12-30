@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ksCrPocApp')
+angular.module('kscrPocApp')
   .filter('instructors', function () {
     return function (input) {
       var output = [];

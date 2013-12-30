@@ -12,7 +12,7 @@
     "angular-sanitize": "~1.2.0",
     "angular-route": "~1.2.0",
     "foundation": "~5.0.2",
-    "angular-touch": "~1.2.5",
+    "angular-touch": "~1.2.6",
     "angular-animate": "~1.2.5",
     "angular-ui-router": "~0.2.7"
   },

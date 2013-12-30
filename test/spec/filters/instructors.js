@@ -3,7 +3,7 @@
 describe('Filter: instructors', function () {
 
   // load the filter's module
-  beforeEach(module('ksCrPocApp'));
+  beforeEach(module('kscrPocApp'));
 
   // initialize a new instance of the filter before each test
   var instructors;

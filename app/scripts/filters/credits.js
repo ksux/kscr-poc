@@ -1,10 +1,11 @@
 'use strict';
 
-angular.module('ksCrPocApp')
+angular.module('kscrPocApp')
   .filter('credits', function ($sce) {
+    var singular = 'credit';
+    var plural = singular + 's';
+
     return function (courseOffering) {
-      var singular = 'credit';
-      var plural = singular + 's';
       switch( courseOffering.creditType ) {
         case 'range':
           return $sce.trustAsHtml(courseOffering.minCredits + '&ndash;' + courseOffering.maxCredits + ' ' + plural);

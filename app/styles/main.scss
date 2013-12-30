@@ -3,6 +3,10 @@
 @import 'foundation/settings';
 @import 'foundation';
 
-@import 'core/ks/cr/search';
-@import 'core/ks/cr/COItem';
-@import 'core/ks/cr/COList';
+@import 'core/util/visibility';
+
+@import 'core/kscr/search';
+@import 'core/kscr/COItem';
+@import 'core/kscr/COList';
+@import 'core/kscr/header';
+@import 'core/kscr/nav';

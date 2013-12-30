@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('ksCrPocApp')
-  .value('coSearchResults', [
+angular.module('kscrPocApp')
+  .value('SearchResultsService', [
     {
       'index': 1,
 

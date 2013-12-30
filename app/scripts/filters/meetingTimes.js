@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ksCrPocApp')
+angular.module('kscrPocApp')
   .filter('meetingTimes', function ($sce, daysFilter, timeRangeFilter) {
     return function (input) {
       var mts = [];

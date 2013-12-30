@@ -1,22 +1,31 @@
-<header>
-  <h1>Course Registration</h1>
-</header>
+<div class="kscr-Header">
+  <p class="kscr-Header-title">Course Registration</p>
+</div>
 
-<nav>
-  <a ui-sref="app.results.list">Results</a>
-  <a ui-sref="app.schedule">My schedule</a>
-  <a ng-click="showSearch = !showSearch">Search for classes</a>
+<nav class="kscr-Nav">
+  <a
+    class="kscr-Nav-item"
+    ng-class="{ 'kscr-Nav-item--active': $state.includes('app.results') }"
+    ui-sref="app.results.list">Search</a>
+  <a
+    class="kscr-Nav-item"
+    ng-class="{ 'kscr-Nav-item--active': $state.includes('app.schedule') }"
+    ui-sref="app.schedule">Schedule</a>
+  <a
+    class="kscr-Nav-item kscr-Nav-item--right"
+    ng-class="{ 'kscr-Nav-item--active': showSearch }"
+    ng-click="showSearch = !showSearch">Search for classes</a>
 </nav>
 
-<form ng-if="showSearch" class="ks-cr-Search">
+<form ng-if="showSearch" class="kscr-Search">
 
-  <label for="searchTerm" class="ks-cr-Search-label">Term</label>
+  <label for="searchTerm" class="kscr-Search-label">Term</label>
   <select id="searchTerm" ng-model="selectedSearchTerm" ng-options="t.id as t.label for t in searchTerms"></select>
 
-  <label for="searchCourses" class="ks-cr-Search-label">Courses</label>
-  <div class="ks-cr-Search-query">
-    <input id="searchCourses" type="text" class="ks-cr-Search-queryInput" placeholder="ENGL, ENGL2, ENGL200"/>
-    <span class="ks-cr-Search-queryButton">
+  <label for="searchCourses" class="kscr-Search-label">Courses</label>
+  <div class="kscr-Search-query">
+    <input id="searchCourses" type="text" class="kscr-Search-queryInput" placeholder="ENGL, ENGL2, ENGL200"/>
+    <span class="kscr-Search-queryButton">
       <button ui-sref="app.results.list">Go</button>
     </span>
   </div>
