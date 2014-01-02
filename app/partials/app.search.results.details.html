@@ -1,0 +1,6 @@
+<a ui-sref="app.search.results.list">{{resultsCount}} Results</a>
+&bull;
+<a ng-if="previousItem" ui-sref="app.search.results.details({ index: previousItem.index, code: previousItem.courseOfferingCode })">Previous</a>
+<a ng-if="nextItem" ui-sref="app.search.results.details({ index: nextItem.index, code: nextItem.courseOfferingCode })">Next</a>
+
+<h4>{{item.courseOfferingCode}} <strong>{{item.title}}</strong></h4>

@@ -8,7 +8,7 @@
       <section class="kscr-COItem">
         <header class="kscr-COItem-header">
           <h1 class="kscr-COItem-code">
-            <a ui-sref="app.results.details">{{co.courseOfferingCode}}</a>
+            <a ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })">{{co.courseOfferingCode}}</a>
           </h1>
           <div class="kscr-COItem-title">{{co.title}}</div>
           <span class="kscr-COItem-credits" ng-bind-html="co | credits"></span>
