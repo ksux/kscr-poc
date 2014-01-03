@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp', [
+  'ngAnimate',
   //'ngCookies',
   //'ngResource',
   'ngSanitize',
@@ -15,13 +16,24 @@ angular.module('kscrPocApp', [
       .state('app', {
         abstract: true,
         templateUrl: 'partials/app.html',
-        controller: function($scope, TermsService) {
+        controller: function($scope, TermsService, SearchResultsService) {
+          // Default values
           $scope.searchCriteria = {
-            selectedTerm: '201301',
-            query: ''
+            termId: '201301',
+            term: null,
+            query: 'travel'
           };
-          $scope.searchTerms = TermsService;
+          $scope.terms = TermsService.data;
           $scope.showSearch = false;
+
+          // Because we want to select terms using a string model, instead
+          // of an object, we need to watch for changes and store the full
+          // object model for display.
+          $scope.$watch('searchCriteria.termId', function(newValue) {
+            $scope.searchCriteria.term = TermsService.findById(newValue);
+          });
+
+          $scope.itemCount = SearchResultsService.count;
         }
       })
       .state('app.search', {
@@ -36,7 +48,6 @@ angular.module('kscrPocApp', [
         },
         controller: function($scope, $state) {
           $scope.search = function() {
-            console.log($scope.searchCriteria);
             $state.go('app.search.results.list');
           };
         }
@@ -44,23 +55,22 @@ angular.module('kscrPocApp', [
       .state('app.search.results', {
         abstract: true,
         url: '/results',
-        templateUrl: 'partials/app.search.results.html'
+        templateUrl: 'partials/app.search.results.html',
+        controller: function($scope, SearchResultsService) {
+          $scope.results = SearchResultsService.results;
+        }
       })
       .state('app.search.results.list', {
         url: '',
         templateUrl: 'partials/app.search.results.list.html',
         data: {
-          title: 'Results'
-        },
-        controller: function($scope, SearchResultsService) {
-          $scope.results = SearchResultsService.results;
+          title: '3 results'
         }
       })
       .state('app.search.results.details', {
         url: '/:index/:code',
         templateUrl: 'partials/app.search.results.details.html',
         controller: function($scope, $stateParams, SearchResultsService) {
-          $scope.itemCount = SearchResultsService.count;
           $scope.previousItem = SearchResultsService.previous($stateParams.index);
           $scope.nextItem = SearchResultsService.next($stateParams.index);
           $scope.item = SearchResultsService.item($stateParams.index);

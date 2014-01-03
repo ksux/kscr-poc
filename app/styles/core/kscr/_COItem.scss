@@ -4,6 +4,10 @@ $ns: '.kscr-COItem';
   border-bottom: 1px solid #000;
 }
 
+#{$ns}--active {
+  background-color: tint(yellow, 70%);
+}
+
 #{$ns}-header {
   position: relative;
 }
@@ -25,5 +29,5 @@ $ns: '.kscr-COItem';
 }
 
 #{$ns}-body {
-  background-color: #ddd;
+  //background-color: #ddd;
 }

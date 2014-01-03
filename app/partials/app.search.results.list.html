@@ -1,14 +1,22 @@
-<section>
+<h2>Click one of <strong>{{itemCount}}</strong> somethings to see details about it.</h2>
+
+<!--
+<section class="medium-5 column util-Animate--slide">
   <h1>Search Results</h1>
 
   <p>{{results.length}} course <span ng-pluralize count="results.length" when="{'1':'offering','other':'offerings'}"></span> found</p>
 
   <ol class="kscr-COList">
     <li ng-repeat="co in results">
-      <section class="kscr-COItem">
+      <section
+        class="kscr-COItem"
+        ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
+        ui-sref-active="kscr-COItem--active">
         <header class="kscr-COItem-header">
           <h1 class="kscr-COItem-code">
-            <a ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })">{{co.courseOfferingCode}}</a>
+            <a
+              ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
+              ng-click="$event.stopPropagation()">{{co.courseOfferingCode}}</a>
           </h1>
           <div class="kscr-COItem-title">{{co.title}}</div>
           <span class="kscr-COItem-credits" ng-bind-html="co | credits"></span>
@@ -23,3 +31,4 @@
     </li>
   </ol>
 </section>
+-->

@@ -1,16 +1,20 @@
-<div class="kscr-Header">
-  <p class="kscr-Header-title">Course Registration</p>
+<div class="row">
+
+  <div class="kscr-Header">
+    <p class="kscr-Header-title">Course Registration</p>
+  </div>
+
+  <nav class="kscr-Nav">
+    <a
+      class="kscr-Nav-item"
+      ng-class="{ 'kscr-Nav-item--active': $state.includes('app.search') }"
+      ng-href="{{srefs['app.search']}}">Search</a>
+    <a
+      class="kscr-Nav-item"
+      ng-class="{ 'kscr-Nav-item--active': $state.includes('app.schedule') }"
+      ui-sref="app.schedule">Schedule</a>
+  </nav>
+
+  <div ui-view></div>
+
 </div>
-
-<nav class="kscr-Nav">
-  <a
-    class="kscr-Nav-item"
-    ng-class="{ 'kscr-Nav-item--active': $state.includes('app.search') }"
-    ng-href="{{srefs['app.search']}}">Search</a>
-  <a
-    class="kscr-Nav-item"
-    ng-class="{ 'kscr-Nav-item--active': $state.includes('app.schedule') }"
-    ui-sref="app.schedule">Schedule</a>
-</nav>
-
-<div ui-view></div>

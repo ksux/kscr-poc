@@ -1,6 +1,26 @@
-<a ui-sref="app.search.results.list">{{resultsCount}} Results</a>
-&bull;
-<a ng-if="previousItem" ui-sref="app.search.results.details({ index: previousItem.index, code: previousItem.courseOfferingCode })">Previous</a>
-<a ng-if="nextItem" ui-sref="app.search.results.details({ index: nextItem.index, code: nextItem.courseOfferingCode })">Next</a>
+<div class="util-Animate--slide">
+<nav class="clearfix">
+  <div class="left">
+    <span
+      ng-pluralize
+      count="itemCount"
+      when="{'0': 'No results', '1': '1 course', 'other': 'Course {{item.index}} of {}'}"></span>
+    &bull;
+    <a ui-sref="app.search.results.list">Back to results</a>
+  </div>
+  <div class="right">
+    <span ng-switch="previousItem === null">
+      <span ng-switch-when="true">Previous</span>
+      <a ng-switch-default ui-sref="app.search.results.details({ index: previousItem.index, code: previousItem.courseOfferingCode })">Previous</a>
+    </span>
+    <span ng-switch="nextItem === null">
+      <span ng-switch-when="true">Next</span>
+      <a ng-switch-default ui-sref="app.search.results.details({ index: nextItem.index, code: nextItem.courseOfferingCode })">Next</a>
+    </span>
+  </div>
+</nav>
 
-<h4>{{item.courseOfferingCode}} <strong>{{item.title}}</strong></h4>
+<section>
+  <h1>{{item.courseOfferingCode}} <strong>{{item.title}}</strong></h1>
+</section>
+</div>

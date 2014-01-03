@@ -61,7 +61,7 @@ angular.module('kscrPocApp')
 
         // CourseOffering info
         'id': '59c680a6-b97c-4fc9-87c2-b2e48b8c8c84',
-        'courseOfferingCode': 'HPER385',
+        'courseOfferingCode': 'GIGW121',
         'title': 'Urban Skateboarding',
         'creditType': 'fixed',
         'fixedCredits': 3,
@@ -91,9 +91,9 @@ angular.module('kscrPocApp')
 
         // CourseOffering info
         'id': '59c680a6-b97c-4fc9-87c2-b2e48b8c8c85',
-        'courseOfferingCode': 'PHSC923',
+        'courseOfferingCode': 'TRDS923',
         'title': 'Theories of Wibbly Wobbly',
-        'creditType': 'multipleCredits',
+        'creditType': 'multiple',
         'multipleCredits': [1, 5],
         'isHonors': true,
 
