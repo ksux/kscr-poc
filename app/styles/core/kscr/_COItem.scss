@@ -1,7 +1,9 @@
 $ns: '.kscr-COItem';
 
 #{$ns} {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #ccc;
+  line-height: 1;
+  padding: 0.5rem;
 }
 
 #{$ns}--active {
@@ -9,19 +11,22 @@ $ns: '.kscr-COItem';
 }
 
 #{$ns}-header {
+  padding-bottom: 0.5rem;
   position: relative;
 }
 
 #{$ns}-code {
   font-size: 1em;
   font-weight: bold;
+  margin: 0;
 }
 
 #{$ns}-title {
-  
+  line-height: 1.2;
 }
 
 #{$ns}-credits {
+  font-size: rem-calc(14);
   //float: right;
   position: absolute;
   right: 0;
@@ -29,5 +34,18 @@ $ns: '.kscr-COItem';
 }
 
 #{$ns}-body {
-  //background-color: #ddd;
+  @include clearfix;
+  margin: 0.5rem 0 0.5rem 1rem;
+
+  > * {
+    font-size: rem-calc(14);
+  }
+}
+
+#{$ns}-time, #{$ns}-type {
+  float: left;
+}
+
+#{$ns}-enrollment, #{$ns}-instructor {
+  float: right;
 }

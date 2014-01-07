@@ -3,14 +3,19 @@
 angular.module('kscrPocApp', [
   'ngAnimate',
   //'ngCookies',
-  //'ngResource',
+  'ngResource',
   'ngSanitize',
   //'ngRoute',
   'ngTouch',
   'ui.router'
 ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     
+    // Enable cross-domain resource sharing (CORS)
+    // http://thibaultdenizet.com/tutorial/cors-with-angular-js-and-sinatra/
+    $httpProvider.defaults.useXDomain = true;
+    //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
     // States
     $stateProvider
       .state('app', {
@@ -56,8 +61,11 @@ angular.module('kscrPocApp', [
         abstract: true,
         url: '/results',
         templateUrl: 'partials/app.search.results.html',
-        controller: function($scope, SearchResultsService) {
+        controller: function($scope, SearchResultsService, CourseOfferingService) {
           $scope.results = SearchResultsService.results;
+          $scope.co = CourseOfferingService.query({ termCode: '201201', courseCode: 'CHEM2' }, function() {
+            console.log($scope.co);
+          });
         }
       })
       .state('app.search.results.list', {

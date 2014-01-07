@@ -14,9 +14,7 @@
   </div>
 </p>
 
-<p ng-pluralize
-  count="itemCount"
-  when="{'0': 'No results', '1': '1 course', 'other': '{} courses'}"></p>
+
 
 <form ng-if="showSearch" class="kscr-Search">
 
@@ -33,14 +31,16 @@
 
 </form>
 
-<div class="util-Animate--slide row">
+<div class="row">
 
   <section
     class="medium-5 column"
     ng-class="{ 'hide-for-small-only': $state.is('app.search.results.details') }">
-    <h1>Search Results</h1>
+    <h1 class="util-Visibility--screenReadersOnly">Search Results</h1>
 
-    <p>{{results.length}} course <span ng-pluralize count="results.length" when="{'1':'offering','other':'offerings'}"></span> found</p>
+    <p ng-pluralize
+      count="itemCount"
+      when="{'0': 'No results', '1': '1 course', 'other': '{} courses'}"></p>
 
     <ol class="kscr-COList">
       <li ng-repeat="co in results">
@@ -58,10 +58,12 @@
             <span class="kscr-COItem-credits" ng-bind-html="co | credits"></span>
           </header>
           <div class="kscr-COItem-body">
-            <p class="kscr-COItem-time" ng-bind-html="co.scheduleItems | meetingTimes"></p>
-            <p class="kscr-COItem-enrollment">{{co.enrollmentCount}}/{{co.maxEnrollmentCount}}</p>
-            <p class="kscr-COItem-type">{{co.type}}</p>
-            <p class="kscr-COItem-instructor">{{co.instructorNames | instructors}}</p>
+            <span class="kscr-COItem-time" ng-bind-html="co.scheduleItems | meetingTimes"></span>
+            <span class="kscr-COItem-enrollment">{{co.enrollmentCount}}/{{co.maxEnrollmentCount}}</span>
+          </div>
+          <div class="kscr-COItem-body">
+            <span class="kscr-COItem-type">{{co.type}}</span>
+            <span class="kscr-COItem-instructor">{{co.instructorNames | instructors}}</span>
           </div>
         </section>
       </li>

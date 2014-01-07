@@ -2,8 +2,8 @@
 
 angular.module('kscrPocApp')
   .filter('credits', function ($sce) {
-    var singular = 'credit';
-    var plural = singular + 's';
+    var singular = 'CR';
+    var plural = singular + '';
 
     return function (courseOffering) {
       switch( courseOffering.creditType ) {
