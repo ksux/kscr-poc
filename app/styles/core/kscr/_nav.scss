@@ -1,20 +1,15 @@
 $ns: '.kscr-Nav';
 
 #{$ns} {
-  border-bottom: 1px solid #000;
-  margin-bottom: 1em;
+  display: flex;
 }
 
 #{$ns}-item {
-  display: inline-block;
+  flex: auto;
   padding: 0.5em;
 }
 
 #{$ns}-item--active {
   background-color: tint(yellow, 70%);
   color: darken($primary-color, 20%);
-}
-
-#{$ns}-item--right {
-  float: right;
 }

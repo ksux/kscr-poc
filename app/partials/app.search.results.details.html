@@ -1,4 +1,3 @@
-<div class="util-Animate--slide">
 <nav class="clearfix">
   <div class="left">
     <span
@@ -22,5 +21,7 @@
 
 <section>
   <h1>{{item.courseOfferingCode}} <strong>{{item.title}}</strong></h1>
+  <a ui-sref="app.search.results.details.activity({ index: item.index })">Select a lab</a>
+
+  <div ui-view></div>
 </section>
-</div>

@@ -19,11 +19,11 @@
 <form ng-if="showSearch" class="kscr-Search">
 
   <label for="searchTerm" class="kscr-Search-label">Term</label>
-  <select id="searchTerm" ng-model="selectedSearchTerm" ng-options="t.id as t.label for t in searchTerms"></select>
+  <select id="searchTerm" ng-model="searchCriteria.termId" ng-options="t.id as t.label for t in terms"></select>
 
   <label for="searchCourses" class="kscr-Search-label">Courses</label>
   <div class="kscr-Search-query">
-    <input id="searchCourses" type="text" class="kscr-Search-queryInput" placeholder="ENGL, ENGL2, ENGL200"/>
+    <input id="searchCourses" type="text" class="kscr-Search-queryInput" placeholder="ENGL, ENGL2, ENGL200" ng-model="searchCriteria.query"/>
     <span class="kscr-Search-queryButton">
       <button ui-sref="app.results.list">Go</button>
     </span>
@@ -35,12 +35,12 @@
 
   <section
     class="medium-5 column"
-    ng-class="{ 'hide-for-small-only': $state.is('app.search.results.details') }">
+    ng-class="{ 'hide-for-small-only': $state.includes('app.search.results.details') }">
     <h1 class="util-Visibility--screenReadersOnly">Search Results</h1>
 
     <p ng-pluralize
       count="itemCount"
-      when="{'0': 'No results', '1': '1 course', 'other': '{} courses'}"></p>
+      when="{'0': 'No courses found', '1': '1 course found', 'other': '{} courses found'}"></p>
 
     <ol class="kscr-COList">
       <li ng-repeat="co in results">
@@ -49,21 +49,28 @@
           ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
           ui-sref-active="kscr-COItem--active">
           <header class="kscr-COItem-header">
-            <h1 class="kscr-COItem-code">
+            <h1 class="kscr-COItem-headline">
               <a
+                class="kscr-COItem-code"
                 ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
                 ng-click="$event.stopPropagation()">{{co.courseOfferingCode}}</a>
+              <span class="kscr-COItem-title">{{co.title}}</span>
             </h1>
-            <div class="kscr-COItem-title">{{co.title}}</div>
             <span class="kscr-COItem-credits" ng-bind-html="co | credits"></span>
           </header>
           <div class="kscr-COItem-body">
-            <span class="kscr-COItem-time" ng-bind-html="co.scheduleItems | meetingTimes"></span>
-            <span class="kscr-COItem-enrollment">{{co.enrollmentCount}}/{{co.maxEnrollmentCount}}</span>
+            <div>
+              <div ng-repeat="time in co.scheduleItems" ng-bind-html="time | meetingTimes"></div>
+            </div>
+            <span class="text-right">{{co.enrollmentCount}}/{{co.maxEnrollmentCount}}</span>
           </div>
           <div class="kscr-COItem-body">
-            <span class="kscr-COItem-type">{{co.type}}</span>
-            <span class="kscr-COItem-instructor">{{co.instructorNames | instructors}}</span>
+            <span>{{co.type}}</span>
+            <div class="text-right">
+              <div ng-repeat="instructor in co.instructorNames">
+                {{instructor.firstName}} {{instructor.lastName}}
+              </div>
+            </div>
           </div>
         </section>
       </li>
@@ -72,7 +79,7 @@
 
   <div
     class="medium-7 column"
-    ng-class="{ 'hide-for-small-only': $state.is('app.search.results.list') }">
+    ng-class="{ 'hide-for-small-only': !$state.includes('app.search.results.details') }">
     <div ui-view></div>
   </div>
 

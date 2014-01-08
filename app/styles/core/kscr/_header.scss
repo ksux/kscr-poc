@@ -1,9 +1,17 @@
 $ns: '.kscr-Header';
 
 #{$ns} {
-  padding: 0 0.5em;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  display: flex;
+  margin-bottom: 1em;
+  padding: 0.5em;
 }
 
 #{$ns}-title {
-  font-size: 2em;
+  flex: 1;
+  font-size: rem-calc(20);
+}
+
+#{$ns}-nav {
 }

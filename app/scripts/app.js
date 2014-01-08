@@ -84,6 +84,16 @@ angular.module('kscrPocApp', [
           $scope.item = SearchResultsService.item($stateParams.index);
         }
       })
+      .state('app.search.results.details.activity', {
+        url: '/activity',
+        templateUrl: 'partials/app.search.results.details.activities.html',
+        controller: function($scope) {
+          $scope.activityOfferings = [
+            { time: 'TuTh 9-9:50am' },
+            { time: 'MoWeFri 11am-1:15pm' }
+          ];
+        }
+      })
       .state('app.schedule', {
         url: '/schedule',
         templateUrl: 'partials/app.schedule.html',
