@@ -3,7 +3,7 @@
 angular.module('kscrPocApp')
   .filter('meetingTimes', function ($sce, daysFilter, timeRangeFilter) {
     return function (input) {
-      return [daysFilter(input), timeRangeFilter(input)].join(' ');
+      return $sce.trustAsHtml([daysFilter(input), timeRangeFilter(input)].join(' '));
       /*
       var mts = [];
       for( var i = 0, l = input.length; i < l; i++ ) {

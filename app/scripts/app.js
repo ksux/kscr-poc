@@ -63,7 +63,7 @@ angular.module('kscrPocApp', [
         templateUrl: 'partials/app.search.results.html',
         controller: function($scope, SearchResultsService, CourseOfferingService) {
           $scope.results = SearchResultsService.results;
-          $scope.co = CourseOfferingService.query({ termCode: '201201', courseCode: 'CHEM2' }, function() {
+          $scope.co = CourseOfferingService.query({ termCode: '201201', courseCode: 'CHEM237' }, function() {
             console.log($scope.co);
           });
         }
@@ -82,16 +82,24 @@ angular.module('kscrPocApp', [
           $scope.previousItem = SearchResultsService.previous($stateParams.index);
           $scope.nextItem = SearchResultsService.next($stateParams.index);
           $scope.item = SearchResultsService.item($stateParams.index);
+          $scope.activityOfferings = [
+            { id: '1a', time: 'TuTh 9-9:50am' },
+            { id: '2b', time: 'MoWeFri 11am-1:15pm' }
+          ];
         }
       })
-      .state('app.search.results.details.activity', {
+      .state('app.search.results.activity', {
         url: '/activity',
         templateUrl: 'partials/app.search.results.details.activities.html',
         controller: function($scope) {
           $scope.activityOfferings = [
-            { time: 'TuTh 9-9:50am' },
-            { time: 'MoWeFri 11am-1:15pm' }
+            { id: '1a', time: 'TuTh 9-9:50am' },
+            { id: '2b', time: 'MoWeFri 11am-1:15pm' }
           ];
+          $scope.selectedActivityOffering = null;
+          $scope.$watch('selectedActivityOffering', function(newValue) {
+            console.log('selected', newValue);
+          });
         }
       })
       .state('app.schedule', {

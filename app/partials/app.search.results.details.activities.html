@@ -3,7 +3,7 @@
   <ul>
     <li ng-repeat="activity in activityOfferings">
       <label>
-        <input type="radio" name="selectedActivityOffering"/>
+        <input type="radio" ng-model="$parent.selectedActivityOffering" value="{{activity.id}}"/>
         {{activity.time}}
       </label>
     </li>

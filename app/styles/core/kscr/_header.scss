@@ -1,15 +1,11 @@
 $ns: '.kscr-Header';
 
 #{$ns} {
-  align-items: center;
   border-bottom: 1px solid #000;
-  display: flex;
-  margin-bottom: 1em;
   padding: 0.5em;
 }
 
 #{$ns}-title {
-  flex: 1;
   font-size: rem-calc(20);
 }
 

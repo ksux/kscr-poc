@@ -1,0 +1,21 @@
+$ns: '.kscr-TermContext';
+
+#{$ns} {
+  border-top: 1px solid #ccc;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.5rem 0;
+}
+
+#{$ns}-current {
+  align-items: center;
+  display: flex;
+  margin: 0;
+}
+
+#{$ns}-currentLabel {
+  flex: 1;
+}
+
+#{$ns}-currentChange {
+  font-size: rem-calc(14);
+}
