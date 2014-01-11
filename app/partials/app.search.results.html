@@ -32,14 +32,15 @@
 
 </form>
 
-<div class="row">
+<div>
 
   <section
-    class="medium-5 column"
+    class="kscr-Results medium-5 column"
     ng-class="{ 'hide-for-small-only': $state.includes('app.search.results.details') }">
     <h1 class="util-Visibility--screenReadersOnly">Search Results</h1>
 
-    <p ng-pluralize
+    <p class="kscr-Results-count"
+      ng-pluralize
       count="itemCount"
       when="{'0': 'No courses found', '1': '1 course found', 'other': '{} courses found'}"></p>
 
