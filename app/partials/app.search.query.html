@@ -1,7 +1,7 @@
 <form class="kscr-Searchs" ng-submit="search()">
 
   <label for="searchTerm" class="kscr-Search-label">Term</label>
-  <select id="searchTerm" ng-model="searchCriteria.termId" ng-options="t.id as t.label for t in terms"></select>
+  <select id="searchTerm" ng-model="searchCriteria.termId" ng-options="t.termId as t.termName for t in terms"></select>
 
   <label for="searchCourses" class="kscr-Search-label">Courses</label>
   <div class="kscr-Search-query">
@@ -14,5 +14,5 @@
 </form>
 
 <div>
-  <a ui-sref="app.search.results.list">Return to your 3 results</a>
+  <a ui-sref="app.search.results.list">Return to your results</a>
 </div>

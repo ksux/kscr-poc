@@ -3,7 +3,8 @@
 angular.module('kscrPocApp')
   .filter('days', function () {
     // These properties are expected from the service
-    var apiFormat = 'isSun,isMon,isTue,isWed,isThu,isFri,isSat'.split(',');
+    //var apiFormat = 'isSun,isMon,isTue,isWed,isThu,isFri,isSat'.split(',');
+    var apiFormat = 'sun,mon,tue,wed,thu,fri,sat'.split(',');
     // This should probably always be 7.
     var dayCount = apiFormat.length;
     // Default formats

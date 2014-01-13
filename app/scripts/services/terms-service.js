@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('TermsService', function() {
+  .factory('termsService', function ($resource, config) {
+    return $resource(config.apiBase + 'terms');
+  });
+
+  /*
     var data = [
       {
         label: 'Fall 2012',
@@ -23,4 +27,4 @@ angular.module('kscrPocApp')
         return null;
       }
     };
-  });
+    */

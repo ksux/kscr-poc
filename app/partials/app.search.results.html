@@ -41,11 +41,11 @@
 
     <p class="kscr-Results-count"
       ng-pluralize
-      count="itemCount"
+      count="results.itemCount"
       when="{'0': 'No courses found', '1': '1 course found', 'other': '{} courses found'}"></p>
 
     <ol class="kscr-COList">
-      <li ng-repeat="co in results">
+      <li ng-repeat="co in results.items">
         <section
           class="kscr-COItem"
           ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
@@ -56,21 +56,19 @@
                 class="kscr-COItem-code"
                 ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
                 ng-click="$event.stopPropagation()">{{co.courseOfferingCode}}</a>
-              <span class="kscr-COItem-title">{{co.title}}</span>
+              <span class="kscr-COItem-title">{{co.courseOfferingDesc}}</span>
             </h1>
             <span class="kscr-COItem-credits" ng-bind-html="co | credits"></span>
           </header>
           <div class="kscr-COItem-body">
-            <div>
-              <div ng-repeat="time in co.scheduleItems" ng-bind-html="time | meetingTimes"></div>
-            </div>
-            <span class="text-right">{{co.enrollmentCount}}/{{co.maxEnrollmentCount}}</span>
+            <div ng-bind-html="co.schedule | meetingTimes"></div>
+            <span class="text-right">{{co.enrollmentCount}}/{{co.activityOfferingMaxSeats}}</span>
           </div>
           <div class="kscr-COItem-body">
-            <span>{{co.type}}</span>
+            <span>{{co.formatOfferingName}}</span>
             <div class="text-right">
-              <div ng-repeat="instructor in co.instructorNames">
-                {{instructor.firstName}} {{instructor.lastName}}
+              <div ng-repeat="instructor in co.instructors">
+                {{instructor.firstName | namecase}} {{instructor.lastName | namecase}}
               </div>
             </div>
           </div>

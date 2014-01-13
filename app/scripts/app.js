@@ -21,21 +21,21 @@ angular.module('kscrPocApp', [
       .state('app', {
         abstract: true,
         templateUrl: 'partials/app.html',
-        controller: function($scope, TermsService, SearchResultsService) {
+        controller: function($scope, termsService, SearchResultsService) {
           // Default values
           $scope.searchCriteria = {
-            termId: '201301',
+            termId: 'kuali.atp.2012Fall',
             term: null,
-            query: 'travel'
+            query: 'CHEM23'
           };
-          $scope.terms = TermsService.data;
+          $scope.terms = termsService.query();
           $scope.showSearch = false;
 
           // Because we want to select terms using a string model, instead
           // of an object, we need to watch for changes and store the full
           // object model for display.
-          $scope.$watch('searchCriteria.termId', function(newValue) {
-            $scope.searchCriteria.term = TermsService.findById(newValue);
+          $scope.$watch('searchCriteria.termId', function() {
+            //$scope.searchCriteria.term = termsService.findById(newValue);
           });
 
           $scope.itemCount = SearchResultsService.count;
@@ -61,11 +61,13 @@ angular.module('kscrPocApp', [
         abstract: true,
         url: '/results',
         templateUrl: 'partials/app.search.results.html',
-        controller: function($scope, SearchResultsService, CourseOfferingService) {
-          $scope.results = SearchResultsService.results;
-          $scope.co = CourseOfferingService.query({ termCode: '201201', courseCode: 'CHEM237' }, function() {
-            console.log($scope.co);
-          });
+        controller: function($scope, SearchResultsService, primaryActivityOfferingService) {
+          $scope.results = primaryActivityOfferingService.query({
+              termCode: '201208',
+              courseCode: $scope.searchCriteria.query
+            }, function() {
+              console.log($scope.searchCriteria, $scope.results);
+            });
         }
       })
       .state('app.search.results.list', {
