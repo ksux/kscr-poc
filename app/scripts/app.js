@@ -21,7 +21,7 @@ angular.module('kscrPocApp', [
       .state('app', {
         abstract: true,
         templateUrl: 'partials/app.html',
-        controller: function($scope, termsService, SearchResultsService) {
+        controller: function($scope, termsService) {
           // Default values
           $scope.searchCriteria = {
             termId: 'kuali.atp.2012Fall',
@@ -37,8 +37,6 @@ angular.module('kscrPocApp', [
           $scope.$watch('searchCriteria.termId', function() {
             //$scope.searchCriteria.term = termsService.findById(newValue);
           });
-
-          $scope.itemCount = SearchResultsService.count;
         }
       })
       .state('app.search', {
@@ -61,12 +59,10 @@ angular.module('kscrPocApp', [
         abstract: true,
         url: '/results',
         templateUrl: 'partials/app.search.results.html',
-        controller: function($scope, SearchResultsService, primaryActivityOfferingService) {
+        controller: function($scope, primaryActivityOfferingService) {
           $scope.results = primaryActivityOfferingService.query({
               termCode: '201208',
               courseCode: $scope.searchCriteria.query
-            }, function() {
-              console.log($scope.searchCriteria, $scope.results);
             });
         }
       })
@@ -80,10 +76,18 @@ angular.module('kscrPocApp', [
       .state('app.search.results.details', {
         url: '/:index/:code',
         templateUrl: 'partials/app.search.results.details.html',
-        controller: function($scope, $stateParams, SearchResultsService) {
-          $scope.previousItem = SearchResultsService.previous($stateParams.index);
-          $scope.nextItem = SearchResultsService.next($stateParams.index);
-          $scope.item = SearchResultsService.item($stateParams.index);
+        controller: function($scope, $state, $stateParams, pagingService) {
+          var paging = pagingService.get('primaryActivityOffering');
+          $scope.item = paging.item($stateParams.index);
+
+          // If the item hasn't been found, then redirect.
+          if( $scope.item === null ) {
+            $state.go('app.search.results.list');
+          }
+
+          $scope.previousItem = paging.previous($stateParams.index);
+          $scope.nextItem = paging.next($stateParams.index);
+          
           $scope.activityOfferings = [
             { id: '1a', time: 'TuTh 9-9:50am' },
             { id: '2b', time: 'MoWeFri 11am-1:15pm' }
