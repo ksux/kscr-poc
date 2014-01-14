@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('primaryActivityOfferingService', function ($resource, config) {
+  .factory('primaryActivityOfferingService', function ($resource, config, $filter) {
     return $resource(config.apiBase + 'courseofferings/primaryactivities', {}, {
       // Override the default query method so the response can be transformed.
       query: {
@@ -26,8 +26,8 @@ angular.module('kscrPocApp')
                 var displayName = primaryActivityOffering.instructors[k].displayName;
                 if( angular.isString(displayName) ) {
                   var instructorNames = displayName.split(', ');
-                  var firstName = instructorNames[1];
-                  var lastName = instructorNames[0];
+                  var firstName = $filter('namecase')(instructorNames[1]);
+                  var lastName = $filter('namecase')(instructorNames[0]);
                   var names = {
                     firstName: firstName,
                     lastName: lastName,
