@@ -25,9 +25,9 @@ angular.module('kscrPocApp')
               for( var k = 0, kl = primaryActivityOffering.instructors.length; k < kl; k++ ) {
                 var displayName = primaryActivityOffering.instructors[k].displayName;
                 if( angular.isString(displayName) ) {
-                  var instructorNames = displayName.split(', ');
-                  var firstName = $filter('namecase')(instructorNames[1]);
-                  var lastName = $filter('namecase')(instructorNames[0]);
+                  var instructorNames = $filter('namecase')(displayName).split(', ');
+                  var firstName = instructorNames[1];
+                  var lastName = instructorNames[0];
                   var names = {
                     firstName: firstName,
                     lastName: lastName,
