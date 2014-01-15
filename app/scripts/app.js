@@ -21,7 +21,7 @@ angular.module('kscrPocApp', [
       .state('app', {
         abstract: true,
         templateUrl: 'partials/app.html',
-        controller: function($scope, termsService) {
+        controller: ['$scope', 'termsService', function($scope, termsService) {
           // Default values
           $scope.searchCriteria = {
             termId: 'kuali.atp.2012Fall',
@@ -37,7 +37,7 @@ angular.module('kscrPocApp', [
           $scope.$watch('searchCriteria.termId', function() {
             //$scope.searchCriteria.term = termsService.findById(newValue);
           });
-        }
+        }]
       })
       .state('app.search', {
         abstract: true,
@@ -49,17 +49,17 @@ angular.module('kscrPocApp', [
         data: {
           title: 'Search'
         },
-        controller: function($scope, $state) {
+        controller: ['$scope', '$state', function($scope, $state) {
           $scope.search = function() {
             $state.go('app.search.results.list');
           };
-        }
+        }]
       })
       .state('app.search.results', {
         abstract: true,
         url: '/results',
         templateUrl: 'partials/app.search.results.html',
-        controller: function($scope, primaryActivityOfferingService, regGroupService) {
+        controller: ['$scope', 'primaryActivityOfferingService', 'regGroupService', function($scope, primaryActivityOfferingService, regGroupService) {
           $scope.results = primaryActivityOfferingService.query({
               termCode: '201208',
               courseCode: $scope.searchCriteria.query
@@ -75,7 +75,7 @@ angular.module('kscrPocApp', [
             console.log('limited', result);
             //$scope.stuffs = result;
           });
-        }
+        }]
       })
       .state('app.search.results.list', {
         url: '',
@@ -87,7 +87,7 @@ angular.module('kscrPocApp', [
       .state('app.search.results.details', {
         url: '/:index/:code',
         templateUrl: 'partials/app.search.results.details.html',
-        controller: function($scope, $state, $stateParams, pagingService, regGroupService) {
+        controller: ['$scope', '$state', '$stateParams', 'pagingService', 'regGroupService', function($scope, $state, $stateParams, pagingService, regGroupService) {
           var paging = pagingService.get('primaryActivityOffering');
           $scope.item = paging.item($stateParams.index);
 
@@ -120,12 +120,12 @@ angular.module('kscrPocApp', [
             { id: '1a', time: 'TuTh 9-9:50am' },
             { id: '2b', time: 'MoWeFri 11am-1:15pm' }
           ];
-        }
+        }]
       })
       .state('app.search.results.activity', {
         url: '/activity',
         templateUrl: 'partials/app.search.results.details.activities.html',
-        controller: function($scope) {
+        controller: ['$scope', function($scope) {
           $scope.activityOfferings = [
             { id: '1a', time: 'TuTh 9-9:50am' },
             { id: '2b', time: 'MoWeFri 11am-1:15pm' }
@@ -134,7 +134,7 @@ angular.module('kscrPocApp', [
           $scope.$watch('selectedActivityOffering', function(newValue) {
             console.log('selected', newValue);
           });
-        }
+        }]
       })
       .state('app.schedule', {
         url: '/schedule',
@@ -142,9 +142,9 @@ angular.module('kscrPocApp', [
         data: {
           title: 'Schedule'
         },
-        controller: function($scope, ScheduleService) {
+        controller: ['$scope', 'ScheduleService', function($scope, ScheduleService) {
           $scope.schedule = ScheduleService;
-        }
+        }]
       });
 
     // For any unmatched url, send to a default route
