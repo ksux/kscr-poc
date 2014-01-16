@@ -32,8 +32,6 @@
 
 </form>
 
-{{stuffs}}
-
 <div>
 
   <section
@@ -64,7 +62,9 @@
           </header>
           <div class="kscr-COItem-body">
             <div ng-bind-html="co.schedule | meetingTimes"></div>
-            <span class="text-right">{{co.enrollmentCount}}/{{co.activityOfferingMaxSeats}}</span>
+            <span class="text-right"
+              ng-pluralize count="co.activityOfferingMaxSeats"
+              when="{'0': '&mdash;', '1': '1 seat', 'other': '{} seats'}"></span>
           </div>
           <div class="kscr-COItem-body">
             <span>{{co.formatOfferingName}}</span>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('primaryActivityOfferingService', function ($resource, config, $filter, pagingService) {
+  .factory('primaryActivityOfferingService', function ($resource, config, pagingService, namecaseFilter) {
 
     // Initiate or get the paging service instance.
     // Clean it out, in case there's old data.
@@ -28,7 +28,7 @@ angular.module('kscrPocApp')
               for( var k = 0, kl = primaryActivityOffering.instructors.length; k < kl; k++ ) {
                 var displayName = primaryActivityOffering.instructors[k].displayName;
                 if( angular.isString(displayName) ) {
-                  var instructorNames = $filter('namecase')(displayName).split(', ');
+                  var instructorNames = namecaseFilter(displayName).split(', ');
                   var firstName = instructorNames[1];
                   var lastName = instructorNames[0];
                   var names = {
