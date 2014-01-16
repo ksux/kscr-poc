@@ -38,6 +38,19 @@
 
   <h2>Additional Activities</h2>
 
+  <ul>
+    <li ng-repeat="regGroup in regGroups">
+      {{regGroup.regGroupName}}
+      <ul>
+        <li ng-repeat="ao in regGroup.activityOfferings" class="util-Grid">
+          <strong class="util-Grid-cell">{{ao.activityOfferingCode}}</strong>
+          <span class="util-Grid-cell" ng-bind-html="ao.schedule | meetingTimes"></span>
+          <span class="util-Grid-cell">{{ao.schedule.buildingCode}} {{ao.schedule.roomCode}}</span>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
   <h3>Labs</h3>
   <ul>
     <li ng-repeat="activity in activityOfferings">

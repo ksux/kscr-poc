@@ -13,21 +13,19 @@ angular.module('kscrPocApp')
 
     $scope.previousItem = paging.previous($stateParams.index);
     $scope.nextItem = paging.next($stateParams.index);
-    console.log($scope);
-    regGroupService.getByAOIds({
-      termCode: '201208',
-      courseCode: $scope.item.courseOfferingCode
-    }, $scope.item.activityOfferingId).then(function(result) {
-      console.log('working', result);
-      //$scope.stuffs = result;
-    });
 
-    regGroupService.get({
+    var params = {
       termCode: '201208',
       courseCode: $scope.item.courseOfferingCode
-    }).then(function(result) {
-      console.log('hurray', result);
-      //$scope.stuffs = result;
+    };
+
+    var aoId = $scope.item.activityOfferingId;
+
+    $scope.regGroups = [];
+
+    regGroupService.get(params, aoId).then(function(result) {
+      console.log('working', result);
+      $scope.regGroups = result;
     });
 
     $scope.activityOfferings = [
