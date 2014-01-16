@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: AppScheduleCtrl', function () {
 
   // load the controller's module
   beforeEach(module('kscrPocApp'));
 
-  var MainCtrl,
+  var AppScheduleCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    AppScheduleCtrl = $controller('AppScheduleCtrl', {
       $scope: scope
     });
   }));

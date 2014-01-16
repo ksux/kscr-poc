@@ -21,23 +21,7 @@ angular.module('kscrPocApp', [
       .state('app', {
         abstract: true,
         templateUrl: 'partials/app.html',
-        controller: ['$scope', 'termsService', function($scope, termsService) {
-          // Default values
-          $scope.searchCriteria = {
-            termId: 'kuali.atp.2012Fall',
-            term: null,
-            query: 'CHEM23'
-          };
-          $scope.terms = termsService.query();
-          $scope.showSearch = false;
-
-          // Because we want to select terms using a string model, instead
-          // of an object, we need to watch for changes and store the full
-          // object model for display.
-          $scope.$watch('searchCriteria.termId', function() {
-            //$scope.searchCriteria.term = termsService.findById(newValue);
-          });
-        }]
+        controller: 'AppCtrl'
       })
       .state('app.search', {
         abstract: true,
@@ -49,33 +33,13 @@ angular.module('kscrPocApp', [
         data: {
           title: 'Search'
         },
-        controller: ['$scope', '$state', function($scope, $state) {
-          $scope.search = function() {
-            $state.go('app.search.results.list');
-          };
-        }]
+        controller: 'AppSearchQueryCtrl'
       })
       .state('app.search.results', {
         abstract: true,
         url: '/results',
         templateUrl: 'partials/app.search.results.html',
-        controller: ['$scope', 'primaryActivityOfferingService', 'regGroupService', function($scope, primaryActivityOfferingService, regGroupService) {
-          $scope.results = primaryActivityOfferingService.query({
-              termCode: '201208',
-              courseCode: $scope.searchCriteria.query
-            });
-          
-          regGroupService.get({ termCode: '201201', courseCode: 'CHEM237' }).then(function(result) {
-            console.log('all', result);
-            //$scope.stuffs = result;
-          });
-
-          //
-          regGroupService.getByAOIds({ termCode: '201201', courseCode: 'CHEM237' }, ['6b1354c2-953d-4099-a773-83a562566bac']).then(function(result) {
-            console.log('limited', result);
-            //$scope.stuffs = result;
-          });
-        }]
+        controller: 'AppSearchResultsCtrl'
       })
       .state('app.search.results.list', {
         url: '',
@@ -87,54 +51,12 @@ angular.module('kscrPocApp', [
       .state('app.search.results.details', {
         url: '/:index/:code',
         templateUrl: 'partials/app.search.results.details.html',
-        controller: ['$scope', '$state', '$stateParams', 'pagingService', 'regGroupService', function($scope, $state, $stateParams, pagingService, regGroupService) {
-          var paging = pagingService.get('primaryActivityOffering');
-          $scope.item = paging.item($stateParams.index);
-
-          // If the item hasn't been found, then redirect.
-          if( $scope.item === null ) {
-            $state.go('app.search.results.list');
-            return;
-          }
-
-          $scope.previousItem = paging.previous($stateParams.index);
-          $scope.nextItem = paging.next($stateParams.index);
-          console.log($scope);
-          regGroupService.getByAOIds({
-            termCode: '201208',
-            courseCode: $scope.item.courseOfferingCode
-          }, $scope.item.activityOfferingId).then(function(result) {
-            console.log('working', result);
-            //$scope.stuffs = result;
-          });
-
-          regGroupService.get({
-            termCode: '201208',
-            courseCode: $scope.item.courseOfferingCode
-          }).then(function(result) {
-            console.log('hurray', result);
-            //$scope.stuffs = result;
-          });
-
-          $scope.activityOfferings = [
-            { id: '1a', time: 'TuTh 9-9:50am' },
-            { id: '2b', time: 'MoWeFri 11am-1:15pm' }
-          ];
-        }]
+        controller: 'AppSearchResultsDetailsCtrl'
       })
       .state('app.search.results.activity', {
         url: '/activity',
         templateUrl: 'partials/app.search.results.details.activities.html',
-        controller: ['$scope', function($scope) {
-          $scope.activityOfferings = [
-            { id: '1a', time: 'TuTh 9-9:50am' },
-            { id: '2b', time: 'MoWeFri 11am-1:15pm' }
-          ];
-          $scope.selectedActivityOffering = null;
-          $scope.$watch('selectedActivityOffering', function(newValue) {
-            console.log('selected', newValue);
-          });
-        }]
+        controller: 'AppSearchResultsDetailsActivitiesCtrl'
       })
       .state('app.schedule', {
         url: '/schedule',
@@ -142,9 +64,7 @@ angular.module('kscrPocApp', [
         data: {
           title: 'Schedule'
         },
-        controller: ['$scope', 'ScheduleService', function($scope, ScheduleService) {
-          $scope.schedule = ScheduleService;
-        }]
+        controller: 'AppScheduleCtrl'
       });
 
     // For any unmatched url, send to a default route
