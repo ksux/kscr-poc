@@ -278,11 +278,6 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            // Manually copy `angular-ui-router` and use the non-minified release
-            // until a new version is released that fixes the faulty 0.2.7 production build.
-            // https://github.com/angular-ui/ui-router/issues/692
-            // https://github.com/angular-ui/ui-router/pull/671
-            'bower_components/angular-ui-router/release/*.js',
             'images/{,*/}*.{webp}',
             'fonts/*'
           ]

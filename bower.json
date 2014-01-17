@@ -14,10 +14,13 @@
     "foundation": "~5.0.2",
     "angular-touch": "~1.2.6",
     "angular-animate": "~1.2.5",
-    "angular-ui-router": "0.2.7"
+    "angular-ui-router": "0.2.8-bowratic-tedium"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",
     "angular-scenario": "~1.2.0"
+  },
+  "resolutions": {
+    "jquery": ">= 2.0.0"
   }
 }
