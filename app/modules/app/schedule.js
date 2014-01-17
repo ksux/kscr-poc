@@ -1,6 +1,6 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('MainScheduleCtrl', function ($scope, ScheduleService) {
+  .controller('AppScheduleCtrl', function ($scope, ScheduleService) {
     $scope.schedule = ScheduleService;
   });

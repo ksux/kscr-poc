@@ -1,5 +1,5 @@
 <!--
-<a ui-sref="main.search.query">New Search</a>
+<a ui-sref="app.search.query">New Search</a>
 <a
   class="kscr-Nav-item" href
   ng-class="{ 'kscr-Nav-item--active': showSearch }"
@@ -11,7 +11,7 @@
     <strong>{{searchCriteria.query}}</strong>
   </div>
   <div>
-    <a ui-sref="main.search.query">Change search criteria</a>
+    <a ui-sref="app.search.query">Change search criteria</a>
   </div>
 </p>
 -->
@@ -26,7 +26,7 @@
   <div class="kscr-Search-query">
     <input id="searchCourses" type="text" class="kscr-Search-queryInput" placeholder="ENGL, ENGL2, ENGL200" ng-model="searchCriteria.query"/>
     <span class="kscr-Search-queryButton">
-      <button ui-sref="main.results.list">Go</button>
+      <button ui-sref="app.results.list">Go</button>
     </span>
   </div>
 
@@ -36,7 +36,7 @@
 
   <section
     class="kscr-Results medium-5 column"
-    ng-class="{ 'hide-for-small-only': $state.includes('main.search.results.details') }">
+    ng-class="{ 'hide-for-small-only': $state.includes('app.search.results.details') }">
     <h1 class="util-Visibility--screenReadersOnly">Search Results</h1>
 
     <p class="kscr-Results-count"
@@ -48,13 +48,13 @@
       <li ng-repeat="co in results.items">
         <section
           class="kscr-COItem"
-          ui-sref="main.search.results.details({ index: co.index, code: co.courseOfferingCode })"
+          ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
           ui-sref-active="kscr-COItem--active">
           <header class="kscr-COItem-header">
             <h1 class="kscr-COItem-headline">
               <a
                 class="kscr-COItem-code"
-                ui-sref="main.search.results.details({ index: co.index, code: co.courseOfferingCode })"
+                ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
                 ng-click="$event.stopPropagation()">{{co.courseOfferingCode}}</a>
               <span class="kscr-COItem-title">{{co.courseOfferingDesc}}</span>
             </h1>
@@ -81,7 +81,7 @@
 
   <div
     class="medium-7 column"
-    ng-class="{ 'hide-for-small-only': !$state.includes('main.search.results.details') }">
+    ng-class="{ 'hide-for-small-only': !$state.includes('app.search.results.details') }">
     <div ui-view></div>
   </div>
 

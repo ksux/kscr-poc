@@ -6,17 +6,17 @@
       when="{'0': 'No results', '1': '1 course', 'other': 'Course {{item.index}} of {}'}"></span>
     <span class="show-for-small-only">
       &nbsp;&bull;&nbsp;
-      <a ui-sref="main.search.results.list">Back to results</a>
+      <a ui-sref="app.search.results.list">Back to results</a>
     </span>
   </div>
   <div class="util-Grid">
     <span ng-switch="previousItem === null">
       <span class="kscr-Paging-navItem kscr-Paging-navItem--disabled" ng-switch-when="true">Previous</span>
-      <a class="kscr-Paging-navItem" ng-switch-default ui-sref="main.search.results.details({ index: previousItem.index, code: previousItem.courseOfferingCode })">Previous</a>
+      <a class="kscr-Paging-navItem" ng-switch-default ui-sref="app.search.results.details({ index: previousItem.index, code: previousItem.courseOfferingCode })">Previous</a>
     </span>
     <span ng-switch="nextItem === null">
       <span class="kscr-Paging-navItem kscr-Paging-navItem--disabled" ng-switch-when="true">Next</span>
-      <a class="kscr-Paging-navItem" ng-switch-default ui-sref="main.search.results.details({ index: nextItem.index, code: nextItem.courseOfferingCode })">Next</a>
+      <a class="kscr-Paging-navItem" ng-switch-default ui-sref="app.search.results.details({ index: nextItem.index, code: nextItem.courseOfferingCode })">Next</a>
     </span>
   </div>
 </nav>
