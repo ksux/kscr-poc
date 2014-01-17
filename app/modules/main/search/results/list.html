@@ -10,12 +10,12 @@
     <li ng-repeat="co in results">
       <section
         class="kscr-COItem"
-        ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
+        ui-sref="main.search.results.details({ index: co.index, code: co.courseOfferingCode })"
         ui-sref-active="kscr-COItem--active">
         <header class="kscr-COItem-header">
           <h1 class="kscr-COItem-code">
             <a
-              ui-sref="app.search.results.details({ index: co.index, code: co.courseOfferingCode })"
+              ui-sref="main.search.results.details({ index: co.index, code: co.courseOfferingCode })"
               ng-click="$event.stopPropagation()">{{co.courseOfferingCode}}</a>
           </h1>
           <div class="kscr-COItem-title">{{co.title}}</div>

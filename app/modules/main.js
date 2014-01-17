@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppCtrl', function ($scope, termsService) {
+  .controller('MainCtrl', function ($scope, termsService) {
     // Default values
     $scope.searchCriteria = {
       termId: 'kuali.atp.2012Fall',

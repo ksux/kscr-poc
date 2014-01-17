@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppSearchResultsDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService) {
+  .controller('MainSearchResultsDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService) {
     var paging = pagingService.get('primaryActivityOffering');
     $scope.item = paging.item($stateParams.index);
 
     // If the item hasn't been found, then redirect.
     if( $scope.item === null ) {
-      $state.go('app.search.results.list');
+      $state.go('main.search.results.list');
       return;
     }
 

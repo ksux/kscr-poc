@@ -18,53 +18,53 @@ angular.module('kscrPocApp', [
 
     // States
     $stateProvider
-      .state('app', {
+      .state('main', {
         abstract: true,
-        templateUrl: 'partials/app.html',
-        controller: 'AppCtrl'
+        templateUrl: 'modules/main.html',
+        controller: 'MainCtrl'
       })
-      .state('app.search', {
+      .state('main.search', {
         abstract: true,
         template: '<div ui-view></div>'
       })
-      .state('app.search.query', {
+      .state('main.search.query', {
         url: '/search',
-        templateUrl: 'partials/app.search.query.html',
+        templateUrl: 'modules/main/search/query.html',
         data: {
           title: 'Search'
         },
-        controller: 'AppSearchQueryCtrl'
+        controller: 'MainSearchQueryCtrl'
       })
-      .state('app.search.results', {
+      .state('main.search.results', {
         abstract: true,
         url: '/results',
-        templateUrl: 'partials/app.search.results.html',
-        controller: 'AppSearchResultsCtrl'
+        templateUrl: 'modules/main/search/results.html',
+        controller: 'MainSearchResultsCtrl'
       })
-      .state('app.search.results.list', {
+      .state('main.search.results.list', {
         url: '',
-        templateUrl: 'partials/app.search.results.list.html',
+        templateUrl: 'modules/main/search/results/list.html',
         data: {
           title: '3 results'
         }
       })
-      .state('app.search.results.details', {
+      .state('main.search.results.details', {
         url: '/:index/:code',
-        templateUrl: 'partials/app.search.results.details.html',
-        controller: 'AppSearchResultsDetailsCtrl'
+        templateUrl: 'modules/main/search/results/details.html',
+        controller: 'MainSearchResultsDetailsCtrl'
       })
-      .state('app.search.results.activity', {
+      .state('main.search.results.activity', {
         url: '/activity',
-        templateUrl: 'partials/app.search.results.details.activities.html',
-        controller: 'AppSearchResultsDetailsActivitiesCtrl'
+        templateUrl: 'modules/main/search/results/details/activities.html',
+        controller: 'MainSearchResultsDetailsActivitiesCtrl'
       })
-      .state('app.schedule', {
+      .state('main.schedule', {
         url: '/schedule',
-        templateUrl: 'partials/app.schedule.html',
+        templateUrl: 'modules/main/schedule.html',
         data: {
           title: 'Schedule'
         },
-        controller: 'AppScheduleCtrl'
+        controller: 'MainScheduleCtrl'
       });
 
     // For any unmatched url, send to a default route
@@ -101,7 +101,7 @@ angular.module('kscrPocApp', [
     };
 
     // Registering the default dynamic states.
-    registerSref('app.search', 'app.search.query');
+    registerSref('main.search', 'main.search.query');
 
     // Whenver the state changes, override the dynamic href
     // generated for any of the decendants of the base state.
