@@ -4,9 +4,10 @@ angular.module('kscrPocApp')
   .controller('AppCtrl', function ($scope, termsService) {
     // Default values
     $scope.searchCriteria = {
-      termId: 'kuali.atp.2012Fall',
+      termId: 'kuali.atp.2012Spring',
+      termCode: '201201',
       term: null,
-      query: 'CHEM23'
+      query: 'CHEM237'
     };
     $scope.terms = termsService.query();
     $scope.showSearch = false;

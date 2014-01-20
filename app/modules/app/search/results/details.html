@@ -36,26 +36,21 @@
   <p>The chemistry of carbons: aliphatic compounds, aromatic compounds, stereochemistry, arenes, halides, alcohols, esters, and spectroscopy.</p>
   <p>Crosslisted as CHEM233.</p>
 
-  <h2>Additional Activities</h2>
-
-  <ul>
-    <li ng-repeat="regGroup in regGroups">
-      {{regGroup.regGroupName}}
+  <div ng-if="hasSecondaryActivityOfferings">
+    <h2>Additional Activities</h2>
+    <div ng-repeat="aoType in regGroups.activityOfferingTypes">
+      <h3>{{aoType.name}}</h3>
+      <p>{{aoType.description}}</p>
       <ul>
-        <li ng-repeat="ao in regGroup.activityOfferings" class="util-Grid">
+        <li ng-repeat="ao in aoType.activityOfferings" class="util-Grid"
+          ng-class="{ 'kscr-ActivityOffering--unselectable': !ao.isSelectable, 'kscr-ActivityOffering--selected': ao.isSelected }"
+          ng-click="selectAO(ao)">
           <strong class="util-Grid-cell">{{ao.activityOfferingCode}}</strong>
           <span class="util-Grid-cell" ng-bind-html="ao.schedule | meetingTimes"></span>
           <span class="util-Grid-cell">{{ao.schedule.buildingCode}} {{ao.schedule.roomCode}}</span>
         </li>
       </ul>
-    </li>
-  </ul>
-
-  <h3>Labs</h3>
-  <ul>
-    <li ng-repeat="activity in activityOfferings">
-      {{activity.time}}
-    </li>
-  </ul>
+    </div>
+  </div>
 
 </section>

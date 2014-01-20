@@ -1,0 +1,12 @@
+$ns: '.kscr-ActivityOffering';
+
+#{$ns} {
+}
+
+#{$ns}--selected {
+  background-color: tint(yellow, 70%);
+}
+
+#{$ns}--unselectable {
+  color: #ccc;
+}
