@@ -3,8 +3,7 @@
 angular.module('kscrPocApp')
   .controller('AppSearchResultsCtrl', function ($scope, primaryActivityOfferingService) {
     $scope.results = primaryActivityOfferingService.query({
-        //termId: $scope.searchCriteria.termId,
-        termCode: $scope.searchCriteria.termCode,
+        termId: $scope.searchCriteria.termId,
         courseCode: $scope.searchCriteria.query
       });
   });

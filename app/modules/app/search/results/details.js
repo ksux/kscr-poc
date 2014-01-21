@@ -16,8 +16,7 @@ angular.module('kscrPocApp')
     $scope.nextItem = paging.next($stateParams.index);
 
     var params = {
-      //termId: $scope.searchCriteria.termId,
-      termCode: $scope.searchCriteria.termCode,
+      termId: $scope.searchCriteria.termId,
       courseCode: $scope.item.courseOfferingCode
     };
 
