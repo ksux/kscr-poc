@@ -23,6 +23,8 @@ angular.module('kscrPocApp')
     var aoId = $scope.item.activityOfferingId;
     var selectedAOIds = [];
 
+    $scope.selectedAOIdsByActivityType = {};
+
     function getSecondaryActivityOfferings(selectedAOIds) {
       regGroupService.get(params, aoId, selectedAOIds).then(function(result) {
         $scope.hasSecondaryActivityOfferings = result.activityOfferingTypes.length > 0;
@@ -32,7 +34,11 @@ angular.module('kscrPocApp')
 
     getSecondaryActivityOfferings(selectedAOIds);
 
-    $scope.selectAO = function(ao) {
+    $scope.selectAO = function(ao, aoType) {
+
+      console.log(ao, aoType);
+      return;
+
       // Refuse selection.
       if( !ao.isSelectable ) {
         console.log('nope');

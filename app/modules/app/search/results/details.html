@@ -42,12 +42,13 @@
       <h3>{{aoType.name}}</h3>
       <p>{{aoType.description}}</p>
       <ul>
-        <li ng-repeat="ao in aoType.activityOfferings" class="util-Grid"
-          ng-class="{ 'kscr-ActivityOffering--unselectable': !ao.isSelectable, 'kscr-ActivityOffering--selected': ao.isSelected }"
-          ng-click="selectAO(ao)">
-          <strong class="util-Grid-cell">{{ao.activityOfferingCode}}</strong>
-          <span class="util-Grid-cell" ng-bind-html="ao.schedule | meetingTimes"></span>
-          <span class="util-Grid-cell">{{ao.schedule.buildingCode}} {{ao.schedule.roomCode}}</span>
+        <li ng-repeat="ao in aoType.activityOfferings">
+          <label class="util-Grid" ng-class="{ 'kscr-ActivityOffering--unselectable': !ao.isSelectable, 'kscr-ActivityOffering--selected': ao.isSelected }">
+            <input type="radio" ng-model="selectedAOIdsByActivityType[aoType.name]" ng-value="ao.activityOfferingId" ng-change="selectAO(ao, aoType)"/>
+            <strong class="util-Grid-cell">{{ao.activityOfferingCode}}</strong>
+            <span class="util-Grid-cell" ng-bind-html="ao.schedule | meetingTimes"></span>
+            <span class="util-Grid-cell">{{ao.schedule.buildingCode}} {{ao.schedule.roomCode}}</span>
+          </label>
         </li>
       </ul>
     </div>
