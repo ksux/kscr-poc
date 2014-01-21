@@ -40,7 +40,8 @@ angular.module('kscrPocApp')
     function getRegGroups(params, defaultAOIds, selectedAOIds) {
       // Configure the parameters.
       var httpConfig = {
-        params: params
+        params: params,
+        cache: true
       };
 
       defaultAOIds = angular.isArray(defaultAOIds) ? defaultAOIds : [ defaultAOIds ];

@@ -7,7 +7,8 @@ angular.module('kscrPocApp', [
   'ngSanitize',
   //'ngRoute',
   'ngTouch',
-  'ui.router'
+  'ui.router',
+  'jmdobry.angular-cache'
 ])
   .config(function ($httpProvider, $stateProvider, $urlRouterProvider) {
     
@@ -70,7 +71,7 @@ angular.module('kscrPocApp', [
     // For any unmatched url, send to a default route
     $urlRouterProvider.otherwise('/search');
   })
-  .run(function ($rootScope, $state) {
+  .run(function ($rootScope, $state, $angularCacheFactory, $http) {
     $rootScope.$state = $state;
 
     var pageTitle = 'Course Registration';
@@ -112,5 +113,29 @@ angular.module('kscrPocApp', [
         }
       });
     });
+
+    //
+    // Caching
+    //
+
+    // Configuration
+    // http://jmdobry.github.io/angular-cache/configuration.html
+    var defaultCache = $angularCacheFactory('defaultCache', {
+      // Hold 1000 items.
+      cache: 1000,
+      // Items expire after 15 minutes.
+      maxAge: 15 * 60 * 1000,
+      // Cache clears after 60 minutes.
+      cacheFlushInterval: 60 * 60 * 1000,
+      // Items will be swiftly deleted.
+      deleteOnExpire: 'aggressive',
+      // Store cache.
+      storageMode: 'localStorage',
+      // Sync with localStorage on every operation.
+      verifyIntegrity: true
+    });
+
+    // Override the default cache.
+    $http.defaults.cache = defaultCache;
 
   });

@@ -11,6 +11,7 @@ angular.module('kscrPocApp')
       // Override the default query method so the response can be transformed.
       query: {
         method: 'GET',
+        cache: true,
         transformResponse: function(data) {
           // Convert the raw data string to native objects.
           data = angular.fromJson(data);
