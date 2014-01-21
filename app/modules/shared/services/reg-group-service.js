@@ -15,7 +15,10 @@ angular.module('kscrPocApp')
       return true;
     }
 
-    // Group AOs by type
+    //
+    // Generates object similar to:
+    //
+
     /*
     {
       activityOfferingTypes: [ // Sorted by priority
@@ -31,7 +34,6 @@ angular.module('kscrPocApp')
           ]
         }
       ],
-      selectedActivityOfferingIds: []
       selectableRegGroupIds: [] // When length === 1, that's the only choice.
     }
     */
@@ -43,7 +45,6 @@ angular.module('kscrPocApp')
         params: params,
         cache: true
       };
-
       defaultAOIds = angular.isArray(defaultAOIds) ? defaultAOIds : [ defaultAOIds ];
       selectedAOIds = angular.isArray(selectedAOIds) ? selectedAOIds : [ selectedAOIds ];
 
@@ -52,7 +53,7 @@ angular.module('kscrPocApp')
       var regGroupsResource = $http.get(config.apiBase + 'reggroups', httpConfig);
       var activityOfferingsResource = $http.get(config.apiBase + 'activityofferings', httpConfig);
       var activityTypesResource = $http.get(config.apiBase + 'activitytypes', httpConfig);
-      // Group resources.
+      // Group the resources.
       var resources = [regGroupsResource, activityOfferingsResource, activityTypesResource];
       
       // Wait for the promises to be resolved.
@@ -66,7 +67,7 @@ angular.module('kscrPocApp')
         // Index
         //
 
-        //var regGroupIndexById = {};
+        var potentialRegGroups = [];
         var associatedAOIdsIndex = {};
         var selectedAOIdsIndex = {};
         var selectableAOIdsIndex = {};
@@ -75,9 +76,15 @@ angular.module('kscrPocApp')
         angular.forEach(regGroupsData, function(regGroup) {
           // Keep a Reg Group if it contains all the Activity Offering Ids indicated.
           if( arrayHasValues(regGroup.activityOfferingIds, defaultAOIds) ) {
-            //regGroupIndexById[regGroup.regGroupId] = regGroup;
 
+            // Checks if this Reg Group matches the selected Activity Offerings.
             var regGroupHasSelectedAOs = arrayHasValues(regGroup.activityOfferingIds, selectedAOIds);
+
+            // Store references to all the Reg Groups
+            // that have Activity Offering Ids matching those selected.
+            if( regGroupHasSelectedAOs ) {
+              potentialRegGroups.push(regGroup.regGroupId);
+            }
 
             // Store all the Activity Offering Ids associated with these Reg Groups.
             angular.forEach(regGroup.activityOfferingIds, function(aoId) {
@@ -168,7 +175,8 @@ angular.module('kscrPocApp')
 
         // Prepare the return data.
         var data = {
-          activityOfferingTypes: []
+          activityOfferingTypes: [],
+          selectedRegGroupId: null
         };
 
         // Group all sorted Activity Offerings by sorted Activity Offering Types.
@@ -188,46 +196,22 @@ angular.module('kscrPocApp')
             description: activityType.description,
             activityOfferings: activityOfferings
           });
-        });
 
-        return data;
-      });
-    }
-
-    //function checkSelectability(data, selectedAOIds) {
-    //}
-
-    // Get all the Reg Groups for a Course Offering
-    // that contain all the indicated Activity Offerings.
-    function getRegGroupsByAOIds(params, aoIds) {
-      // Make the aoIds an array, if it isn't already.
-      aoIds = angular.isArray(aoIds) ? aoIds : [ aoIds ];
-      // Filter the output of `get`.
-      return getRegGroups(params).then(function(result) {
-        var data = [];
-        // Loop through all Reg Group objects.
-        angular.forEach(result, function(regGroup) {
-          // Keep a Reg Group if it contains all the Activity Offering Ids indicated.
-          if( arrayHasValues(regGroup.activityOfferingIds, aoIds) ) {
-            data.push(regGroup);
+          if( potentialRegGroups.length === 1 ) {
+            data.selectedRegGroupId = potentialRegGroups[0];
           }
         });
+
         return data;
       });
     }
 
     return {
       // @param params Object
-      // @param aoIds String/Array (optional)
+      // @param defaultAOIds String/Array
+      // @param selectedAOIds String/Array (optional)
       get: function(params, defaultAOIds, selectedAOIds) {
-        //console.log('woot', aoIds);
         return getRegGroups(params, defaultAOIds, selectedAOIds);
-        /*
-        if( angular.isArray(aoIds) || angular.isString(aoIds) ) {
-          return getRegGroupsByAOIds(params, aoIds);
-        }
-        return getRegGroups(params);
-        */
       }
     };
   });

@@ -19,42 +19,33 @@ angular.module('kscrPocApp')
       termId: $scope.searchCriteria.termId,
       courseCode: $scope.item.courseOfferingCode
     };
-
     var aoId = $scope.item.activityOfferingId;
-    var selectedAOIds = [];
 
+    // Since there's only one AO per Activity Type,
+    // match to keys for easy, immediate access.
     $scope.selectedAOIdsByActivityType = {};
+
+    // Gather first round of secondary Activity Offering data.
+    getSecondaryActivityOfferings();
+
+    // A secondary Activity Offering was selected.
+    $scope.selectedActivityOffering = function() {
+      // Transform selected Activity Offering Ids
+      // from their Activity Type keys into an array.
+      var selectedAOIds = [];
+      angular.forEach($scope.selectedAOIdsByActivityType, function(aoId) {
+        selectedAOIds.push(aoId);
+      });
+      // Recheck selections against the raw data.
+      getSecondaryActivityOfferings(selectedAOIds);
+    };
 
     function getSecondaryActivityOfferings(selectedAOIds) {
       regGroupService.get(params, aoId, selectedAOIds).then(function(result) {
         $scope.hasSecondaryActivityOfferings = result.activityOfferingTypes.length > 0;
         $scope.regGroups = result;
+        console.log('selected reg group', result.selectedRegGroupId);
       });
     }
-
-    getSecondaryActivityOfferings(selectedAOIds);
-
-    $scope.selectAO = function(ao, aoType) {
-
-      console.log(ao, aoType);
-      return;
-
-      // Refuse selection.
-      if( !ao.isSelectable ) {
-        console.log('nope');
-        return;
-      }
-      // Undo selection.
-      if( ao.isSelected ) {
-        var position = selectedAOIds.indexOf(ao.activityOfferingId);
-        selectedAOIds.splice(position, 1);
-      }
-      // Or refine selection.
-      else {
-        selectedAOIds.push(ao.activityOfferingId);
-      }
-      // Update selections.
-      getSecondaryActivityOfferings(selectedAOIds);
-    };
-
+    
   });
