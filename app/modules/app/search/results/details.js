@@ -3,6 +3,10 @@
 angular.module('kscrPocApp')
   .controller('AppSearchResultsDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService) {
     
+    //
+    // Get this Course Offering and primary Activity Offering.
+    // 
+
     var paging = pagingService.get('primaryActivityOffering');
     $scope.item = paging.item($stateParams.index);
 
@@ -12,8 +16,31 @@ angular.module('kscrPocApp')
       return;
     }
 
+    //
+    // Grading options.
+    //
+
+    $scope.additionalGradingOptions = [];
+
+    if( $scope.item.auditCourse ) {
+      $scope.additionalGradingOptions.push('Audit');
+    }
+    if( $scope.item.studentSelectablePassFail ) {
+      $scope.additionalGradingOptions.push('Pass/Fail');
+    }
+
+    $scope.hasAdditionalGradingOptions = $scope.additionalGradingOptions.length > 0;
+
+    //
+    // Sibling navigation.
+    //
+
     $scope.previousItem = paging.previous($stateParams.index);
     $scope.nextItem = paging.next($stateParams.index);
+
+    //
+    // Secondary Activity Offering selection.
+    //
 
     var params = {
       termId: $scope.searchCriteria.termId,
@@ -47,5 +74,5 @@ angular.module('kscrPocApp')
         console.log('selected reg group', result.selectedRegGroupId);
       });
     }
-    
+
   });

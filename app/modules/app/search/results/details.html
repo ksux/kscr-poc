@@ -30,7 +30,10 @@
   <p>CHEM131, CHEM135, or CHEM146; and (CHEM132, CHEM136, or CHEM147)</p>
 
   <h2>Additional Grading Options</h2>
-  <p>Audit, Pass/Fail</p>
+  <div ng-switch on="hasAdditionalGradingOptions">
+    <p ng-switch-when="true">{{additionalGradingOptions.join(', ')}}</p>
+    <p ng-switch-when="false">No other grading options are available.</p>
+  </div>
 
   <h2>Description</h2>
   <p>The chemistry of carbons: aliphatic compounds, aromatic compounds, stereochemistry, arenes, halides, alcohols, esters, and spectroscopy.</p>
