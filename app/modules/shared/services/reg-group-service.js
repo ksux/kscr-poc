@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('regGroupService', function ($http, config, $q, orderByFilter) {
+  .factory('regGroupService', function ($http, apiService, $q, orderByFilter) {
 
     // Indicate if all items in one array is found in another.
     function arrayHasValues(arr, items) {
@@ -50,9 +50,9 @@ angular.module('kscrPocApp')
 
       // Call all services.
       // We must use $http, because $resource doesn't return promises.
-      var regGroupsResource = $http.get(config.apiBase + 'reggroups', httpConfig);
-      var activityOfferingsResource = $http.get(config.apiBase + 'activityofferings', httpConfig);
-      var activityTypesResource = $http.get(config.apiBase + 'activitytypes', httpConfig);
+      var regGroupsResource = $http.get(apiService.get('reggroups'), httpConfig);
+      var activityOfferingsResource = $http.get(apiService.get('activityofferings'), httpConfig);
+      var activityTypesResource = $http.get(apiService.get('activitytypes'), httpConfig);
       // Group the resources.
       var resources = [regGroupsResource, activityOfferingsResource, activityTypesResource];
       

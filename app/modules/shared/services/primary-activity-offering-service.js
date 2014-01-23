@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('primaryActivityOfferingService', function ($resource, config, pagingService, namecaseFilter) {
+  .factory('primaryActivityOfferingService', function ($resource, apiService, pagingService, namecaseFilter) {
 
     // Initiate or get the paging service instance.
     var paging = pagingService.get('primaryActivityOffering');
 
-    return $resource(config.apiBase + 'courseofferings/primaryactivities', {}, {
+    return $resource(apiService.get('courseofferings/primaryactivities'), {}, {
       // Override the default query method so the response can be transformed.
       query: {
         method: 'GET',
