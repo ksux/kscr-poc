@@ -19,9 +19,8 @@ angular.module('kscrPocApp')
           // Convert the raw data string to native objects.
           data = angular.fromJson(data);
 
-          // The destination array for the transform.
-          // Base-1, not base-0.
-          var index = 1;
+          // Assign an index to all items.
+          var index = 0;
 
           for( var i = 0, il = data.length; i < il; i++ ) {
             var courseOffering = data[i];
@@ -50,8 +49,10 @@ angular.module('kscrPocApp')
                 }
               }
 
-              // Start with a basic object with the incremented index.
+              // Base-1, not base-0 index.
               index++;
+
+              // Start with a basic object with the incremented index.
               var obj = {
                 index: index,
                 // Assume fixed credit type, until the API is refined.
