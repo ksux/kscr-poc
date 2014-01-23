@@ -6,7 +6,7 @@ angular.module('kscrPocApp')
     // Initiate or get the paging service instance.
     var paging = pagingService.get('primaryActivityOffering');
 
-    return $resource(apiService.get('courseofferings/primaryactivities'), {}, {
+    return $resource(apiService.get('primaryactivities'), {}, {
       // Override the default query method so the response can be transformed.
       query: {
         method: 'GET',
