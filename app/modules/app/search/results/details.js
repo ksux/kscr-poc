@@ -59,16 +59,10 @@ angular.module('kscrPocApp')
 
     // A secondary Activity Offering was selected.
     $scope.updateSelections = function() {
-      // Transform selected Activity Offering Ids
-      // from their Activity Type keys into an array.
-      var selectedAOIds = [];
-      angular.forEach($scope.selectedAOsByActivityType, function(ao) {
-        selectedAOIds.push(ao.activityOfferingId);
-      });
 
       // Build a model for displaying a summary of the selections.
       var selectionSummary = [];
-      angular.forEach($scope.regGroups.activityOfferingTypes, function(aoType) {
+      angular.forEach($scope.regGroups, function(aoType) {
         var ao = $scope.selectedAOsByActivityType[aoType.name];
         selectionSummary.push({
           typeName: aoType.name,
@@ -78,15 +72,26 @@ angular.module('kscrPocApp')
       })
       $scope.selectionSummary = selectionSummary;
 
+      // Transform selected Activity Offering Ids
+      // from their Activity Type keys into an array.
+      var selectedAOIds = [];
+      angular.forEach($scope.selectedAOsByActivityType, function(ao) {
+        selectedAOIds.push(ao.activityOfferingId);
+      });
+      selectedAOIds.push(aoId);
+
       // Recheck selections against the raw data.
-      //getSecondaryActivityOfferings(selectedAOIds);
+      regGroupService.getMatchingRegGroupId(params, selectedAOIds).then(function(result) {
+        $scope.hasSelectedRegGroupId = angular.isString(result);
+        $scope.selectedRegGroupId = result;
+        console.log('selected reg group', result);
+      });
     };
 
     function getSecondaryActivityOfferings(selectedAOIds) {
       regGroupService.get(params, aoId, selectedAOIds).then(function(result) {
         $scope.regGroups = result;
         $scope.updateSelections();
-        console.log('selected reg group', result.selectedRegGroupId);
       });
     }
 

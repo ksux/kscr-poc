@@ -44,7 +44,7 @@
     <p ng-switch-when="false">No other grading options are available.</p>
   </div>
 
-  <div ng-repeat="aoType in regGroups.activityOfferingTypes">
+  <div ng-repeat="aoType in regGroups">
     <h2 title="{{aoType.description}}">{{aoType.name}}</h2>
     <ul>
       <li ng-repeat="ao in aoType.activityOfferings">
