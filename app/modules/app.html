@@ -7,6 +7,11 @@
       <nav class="kscr-Header-nav kscr-Nav">
         <a
           class="kscr-Nav-item"
+          ng-class="{ 'kscr-Nav-item--active': $state.is('app.search.query') }"
+          ui-sref="app.search.query"
+          ng-if="!$state.is('app.search.query')">Query</a>
+        <a
+          class="kscr-Nav-item"
           ng-class="{ 'kscr-Nav-item--active': $state.includes('app.search') }"
           ng-href="{{srefs['app.search']}}">Search</a>
         <a
@@ -19,7 +24,7 @@
       </nav>
     </div>
 
-    <div class="kscr-TermContext">
+    <div class="kscr-TermContext" ng-if="!$state.is('app.search.query')">
       <p class="kscr-TermContext-current">
         <span class="kscr-TermContext-currentLabel">{{selectedTerm.termName}}</span>
         <a class="kscr-TermContext-currentChange">change term</a>
