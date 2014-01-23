@@ -37,6 +37,8 @@ angular.module('kscrPocApp')
 
     $scope.previousItem = paging.previous($stateParams.index);
     $scope.nextItem = paging.next($stateParams.index);
+    $scope.hasPreviousItem = $scope.previousItem !== null;
+    $scope.hasNextItem = $scope.nextItem !== null;
 
     //
     // Secondary Activity Offering selection.
