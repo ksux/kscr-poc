@@ -52,28 +52,49 @@ angular.module('kscrPocApp')
 
     // Since there's only one AO per Activity Type,
     // match to keys for easy, immediate access.
-    $scope.selectedAOIdsByActivityType = {};
+    $scope.selectedAOsByActivityType = {};
 
     // Gather first round of secondary Activity Offering data.
     getSecondaryActivityOfferings();
 
     // A secondary Activity Offering was selected.
-    $scope.selectedActivityOffering = function() {
+    $scope.updateSelections = function() {
       // Transform selected Activity Offering Ids
       // from their Activity Type keys into an array.
       var selectedAOIds = [];
-      angular.forEach($scope.selectedAOIdsByActivityType, function(aoId) {
-        selectedAOIds.push(aoId);
+      angular.forEach($scope.selectedAOsByActivityType, function(ao) {
+        selectedAOIds.push(ao.activityOfferingId);
       });
+
+      // Build a model for displaying a summary of the selections.
+      var selectionSummary = [];
+      angular.forEach($scope.regGroups.activityOfferingTypes, function(aoType) {
+        var ao = $scope.selectedAOsByActivityType[aoType.name];
+        selectionSummary.push({
+          typeName: aoType.name,
+          ao: ao,
+          hasSelected: angular.isDefined(ao)
+        });
+      })
+      $scope.selectionSummary = selectionSummary;
+
       // Recheck selections against the raw data.
-      getSecondaryActivityOfferings(selectedAOIds);
+      //getSecondaryActivityOfferings(selectedAOIds);
     };
 
     function getSecondaryActivityOfferings(selectedAOIds) {
       regGroupService.get(params, aoId, selectedAOIds).then(function(result) {
         $scope.regGroups = result;
+        $scope.updateSelections();
         console.log('selected reg group', result.selectedRegGroupId);
       });
     }
+
+    //
+    // Registration
+    //
+
+    $scope.register = function() {
+    };
 
   });

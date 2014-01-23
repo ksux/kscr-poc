@@ -21,7 +21,22 @@
 <section class="kscr-Article">
   <h1>{{item.courseOfferingCode}} <strong>{{item.courseOfferingDesc}}</strong></h1>
 
-  <button>Register</button>
+  <form class="kscr-Register" ng-submit="register()">
+    <div class="kscr-Register-activities"
+      ng-repeat="selection in selectionSummary">
+      <div ng-if="!selection.hasSelected">Select a {{selection.typeName}}.</div>
+      <div ng-if="selection.hasSelected" class="util-Grid">
+        <div class="util-Grid-cell">{{selection.typeName}}</div>
+        <div class="util-Grid-cell" ng-bind-html="selection.ao.schedule | meetingTimes"></div>
+        <div class="util-Grid-cell">
+          <div ng-repeat="instructor in selection.ao.instructors">
+            {{instructor.firstName | namecase}} {{instructor.lastName | namecase}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="kscr-Register-button" type="submit">Register</button>
+  </form>
 
   <h2>Alternate grading options</h2>
   <div ng-switch on="hasAdditionalGradingOptions">
@@ -33,11 +48,11 @@
     <h2 title="{{aoType.description}}">{{aoType.name}}</h2>
     <ul>
       <li ng-repeat="ao in aoType.activityOfferings">
-        <label class="util-Grid util-Grid--center kscr-ActivityOffering" ng-class="{ 'kscr-ActivityOffering--selected': ao.isSelected }">
+        <label class="util-Grid util-Grid--center kscr-ActivityOffering" ng-class="{ 'kscr-ActivityOffering--selected': (selectedAOsByActivityType[aoType.name] === ao) }">
           <input type="radio" class="kscr-ActivityOffering-item"
-            ng-model="selectedAOIdsByActivityType[aoType.name]"
-            ng-value="ao.activityOfferingId"
-            ng-change="selectedActivityOffering()"/>
+            ng-model="selectedAOsByActivityType[aoType.name]"
+            ng-value="ao"
+            ng-change="updateSelections()"/>
           <div class="util-Grid-cell kscr-ActivityOffering-item">
             <div ng-bind-html="ao.schedule | meetingTimes"></div>
             <div ng-repeat="instructor in ao.instructors">
