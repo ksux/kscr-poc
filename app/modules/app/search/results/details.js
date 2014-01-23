@@ -69,7 +69,6 @@ angular.module('kscrPocApp')
 
     function getSecondaryActivityOfferings(selectedAOIds) {
       regGroupService.get(params, aoId, selectedAOIds).then(function(result) {
-        $scope.hasSecondaryActivityOfferings = result.activityOfferingTypes.length > 0;
         $scope.regGroups = result;
         console.log('selected reg group', result.selectedRegGroupId);
       });

@@ -136,6 +136,6 @@ angular.module('kscrPocApp', [
     });
 
     // Override the default cache.
-    $http.defaults.cache = defaultCache;
+    //$http.defaults.cache = defaultCache;
 
   });
