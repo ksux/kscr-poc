@@ -31,7 +31,8 @@ angular.module('kscrPocApp')
           courseCode: $scope.searchCriteria.query
         }, function(results) {
           $scope.results = results;
-          $state.go('app.search.results.list');
+          var hasResults = results.itemCount > 0;
+          $state.go( 'app.search.results' + (hasResults ? '.list' : '-empty') );
         });
     };
 

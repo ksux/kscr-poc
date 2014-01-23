@@ -36,6 +36,13 @@ angular.module('kscrPocApp', [
         },
         controller: 'AppSearchQueryCtrl'
       })
+      .state('app.search.results-empty', {
+        url: '/results/none',
+        templateUrl: 'modules/app/search/results-empty.html',
+        data: {
+          title: 'No results'
+        }
+      })
       .state('app.search.results', {
         abstract: true,
         url: '/results',
