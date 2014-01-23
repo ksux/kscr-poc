@@ -1,7 +1,15 @@
-<h4>{{selectedTerm.termName}} Schedule</h4>
-<ul>
-  <li ng-repeat="course in term.registrationGroups">
-    <p>{{course.courseCode}}</p>
-    <p>{{course.courseTitle}}</p>
-  </li>
-</ul>
+<h1>{{selectedTerm.termName}} Schedule</h1>
+<div ng-repeat="course in schedule">
+  <h2>{{course.courseCode}}</h2>
+  <ul>
+    <li ng-repeat="ao in course.activityOfferings" class="util-Grid">
+      <div class="util-Grid-cell">{{ao.activiyOfferingTypeShortName}}</div>
+      <div class="util-Grid-cell">
+        <div ng-repeat="meeting in ao.scheduleComponents" class="util-Grid">
+          <div ng-bind-html="meeting | meetingTimes" class="util-Grid-cell"></div>
+          <div class="util-Grid-cell">{{meeting.buildingCode}} {{meeting.roomCode}}<div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
