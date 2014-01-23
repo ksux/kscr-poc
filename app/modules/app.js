@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppCtrl', function ($scope, termsService) {
+  .controller('AppCtrl', function ($scope, $state, termsService, primaryActivityOfferingService) {
     // Default values
     $scope.searchCriteria = {
       termId: 'kuali.atp.2012Spring',
@@ -24,6 +24,16 @@ angular.module('kscrPocApp')
     $scope.$watch('searchCriteria.termId', function(newValue) {
       updateSelectedTerm(newValue);
     });
+
+    $scope.query = function() {
+      primaryActivityOfferingService.query({
+          termId: $scope.searchCriteria.termId,
+          courseCode: $scope.searchCriteria.query
+        }, function(results) {
+          $scope.results = results;
+          $state.go('app.search.results.list');
+        });
+    };
 
     function updateSelectedTerm(termId) {
       // Ignore if the term data has yet to be returned.

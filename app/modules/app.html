@@ -1,35 +1,42 @@
 <div class="row">
 
-  <div class="kscr-Header">
+  <div class="kscr-Header util-Grid util-Grid--center">
 
-    <div class="util-Grid util-Grid--center">
-      <span class="kscr-Header-title util-Grid-cell">Course Registration</span>
-      <nav class="kscr-Header-nav kscr-Nav">
-        <a
-          class="kscr-Nav-item"
-          ng-class="{ 'kscr-Nav-item--active': $state.is('app.search.query') }"
-          ui-sref="app.search.query"
-          ng-if="!$state.is('app.search.query')">Query</a>
-        <a
-          class="kscr-Nav-item"
-          ng-class="{ 'kscr-Nav-item--active': $state.includes('app.search') }"
-          ng-href="{{srefs['app.search']}}">Search</a>
-        <a
-          class="kscr-Nav-item"
-          href="#">Cart</a>
-        <a
-          class="kscr-Nav-item"
-          ng-class="{ 'kscr-Nav-item--active': $state.includes('app.schedule') }"
-          ui-sref="app.schedule">Schedule</a>
-      </nav>
+    <span class="kscr-Header-title util-Grid-cell">Course Registration</span>
+
+    <nav class="kscr-Header-nav kscr-Nav">
+      <a
+        class="kscr-Nav-item"
+        ng-class="{ 'kscr-Nav-item--active': $state.is('app.search.query') }"
+        ui-sref="app.search.query"
+        ng-if="!$state.is('app.search.query')">Query</a>
+      <a
+        class="kscr-Nav-item"
+        ng-class="{ 'kscr-Nav-item--active': $state.includes('app.search') }"
+        ng-href="{{srefs['app.search']}}">Search</a>
+      <a
+        class="kscr-Nav-item"
+        href="#">Cart</a>
+      <a
+        class="kscr-Nav-item"
+        ng-class="{ 'kscr-Nav-item--active': $state.includes('app.schedule') }"
+        ui-sref="app.schedule">Schedule</a>
+    </nav>
+
+  </div>
+
+  <div class="kscr-Search" ng-if="!$state.is('app.search.query')">
+
+    <div class="kscr-Search-item kscr-TermContext util-Grid">
+      <span class="kscr-TermContext-label util-Grid-cell">{{selectedTerm.termName}}</span>
+      <a class="kscr-TermContext-change">change term</a>
     </div>
 
-    <div class="kscr-TermContext" ng-if="!$state.is('app.search.query')">
-      <p class="kscr-TermContext-current">
-        <span class="kscr-TermContext-currentLabel">{{selectedTerm.termName}}</span>
-        <a class="kscr-TermContext-currentChange">change term</a>
-      </p>
-    </div>
+    <form class="kscr-Search-item kscr-Query util-Grid" ng-submit="query()">
+      <label for="searchInput" class="kscr-Query-label util-Visibility--screenReadersOnly">Courses</label>
+      <input id="searchInput" type="text" class="kscr-Query-input util-Grid-cell" placeholder="ENGL, ENGL2, ENGL200" ng-model="searchCriteria.query"/>
+      <button type="submit" class="kscr-Query-button">Go</button>
+    </form>
 
   </div>
 
