@@ -58,6 +58,13 @@ angular.module('kscrPocApp', [
         templateUrl: 'modules/app/search/results/list/details.html',
         controller: 'AppSearchResultsListDetailsCtrl'
       })
+      .state('app.cart', {
+        url: '/cart',
+        templateUrl: 'modules/app/cart.html',
+        data: {
+          title: 'Cart'
+        }
+      })
       .state('app.schedule', {
         url: '/schedule',
         templateUrl: 'modules/app/schedule.html',
