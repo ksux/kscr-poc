@@ -25,19 +25,14 @@ angular.module('kscrPocApp', [
         controller: 'AppCtrl'
       })
       .state('app.search', {
-        abstract: true,
-        template: '<div ui-view></div>'
-      })
-      .state('app.search.query', {
         url: '/search',
-        templateUrl: 'modules/app/search/query.html',
+        templateUrl: 'modules/app/search.html',
         data: {
           title: 'Search'
-        },
-        controller: 'AppSearchQueryCtrl'
+        }
       })
       .state('app.search.results-empty', {
-        url: '/results/none',
+        url: '',
         templateUrl: 'modules/app/search/results-empty.html',
         data: {
           title: 'No results'
@@ -45,7 +40,7 @@ angular.module('kscrPocApp', [
       })
       .state('app.search.results', {
         abstract: true,
-        url: '/results',
+        url: '',
         templateUrl: 'modules/app/search/results.html',
         controller: 'AppSearchResultsCtrl'
       })
@@ -60,11 +55,6 @@ angular.module('kscrPocApp', [
         url: '/:index/:code',
         templateUrl: 'modules/app/search/results/details.html',
         controller: 'AppSearchResultsDetailsCtrl'
-      })
-      .state('app.search.results.activity', {
-        url: '/activity',
-        templateUrl: 'modules/app/search/results/details/activities.html',
-        controller: 'AppSearchResultsDetailsActivitiesCtrl'
       })
       .state('app.schedule', {
         url: '/schedule',
@@ -109,7 +99,7 @@ angular.module('kscrPocApp', [
     };
 
     // Registering the default dynamic states.
-    registerSref('app.search', 'app.search.query');
+    registerSref('app.search', 'app.search');
 
     // Whenver the state changes, override the dynamic href
     // generated for any of the decendants of the base state.
