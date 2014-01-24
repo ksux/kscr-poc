@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppCtrl', function ($scope, $state, termsService, primaryActivityOfferingService) {
+  .controller('AppCtrl', function ($scope, $state, termsService) {
     // Default values
     $scope.searchCriteria = {
       termId: 'kuali.atp.2012Spring',
@@ -26,14 +26,11 @@ angular.module('kscrPocApp')
     });
 
     $scope.query = function() {
-      primaryActivityOfferingService.query({
-          termId: $scope.searchCriteria.termId,
-          courseCode: $scope.searchCriteria.query
-        }, function(results) {
-          $scope.results = results;
-          var hasResults = results.itemCount > 0;
-          $state.go( 'app.search.results' + (hasResults ? '.list' : '-empty') );
-        });
+      var params = {
+        termCode: $scope.selectedTerm.termCode,
+        query: $scope.searchCriteria.query
+      };
+      $state.go('app.search.results', params);
     };
 
     function updateSelectedTerm(termId) {

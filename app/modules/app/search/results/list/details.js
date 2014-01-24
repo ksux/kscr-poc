@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppSearchResultsDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService) {
+  .controller('AppSearchResultsListDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService) {
     
     //
     // Get this Course Offering and primary Activity Offering.

@@ -10,10 +10,10 @@
   <div class="util-Grid">
 
     <span ng-if="!hasPreviousItem" class="kscr-Paging-navItem kscr-Paging-navItem--disabled">Previous</span>
-    <a ng-if="hasPreviousItem" class="kscr-Paging-navItem" ui-sref="app.search.results.details({ index: previousItem.index, code: previousItem.courseOfferingCode })">Previous</a>
+    <a ng-if="hasPreviousItem" class="kscr-Paging-navItem" ui-sref="app.search.results.list.details({ index: previousItem.index })">Previous</a>
 
     <span ng-if="!hasNextItem" class="kscr-Paging-navItem kscr-Paging-navItem--disabled">Next</span>
-    <a ng-if="hasNextItem" class="kscr-Paging-navItem" ui-sref="app.search.results.details({ index: nextItem.index, code: nextItem.courseOfferingCode })">Next</a>
+    <a ng-if="hasNextItem" class="kscr-Paging-navItem" ui-sref="app.search.results.list.details({ index: nextItem.index })">Next</a>
     
   </div>
 </nav>

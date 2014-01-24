@@ -31,18 +31,20 @@ angular.module('kscrPocApp', [
           title: 'Search'
         }
       })
-      .state('app.search.results-empty', {
+      .state('app.search.results', {
+        url: '/:termCode/:query',
+        template: '<div ui-view></div>',
+        controller: 'AppSearchResultsCtrl',
+        data: {
+          title: 'Searching'
+        }
+      })
+      .state('app.search.results.empty', {
         url: '',
-        templateUrl: 'modules/app/search/results-empty.html',
+        templateUrl: 'modules/app/search/results/empty.html',
         data: {
           title: 'No results'
         }
-      })
-      .state('app.search.results', {
-        abstract: true,
-        url: '',
-        templateUrl: 'modules/app/search/results.html',
-        controller: 'AppSearchResultsCtrl'
       })
       .state('app.search.results.list', {
         url: '',
@@ -51,18 +53,18 @@ angular.module('kscrPocApp', [
           title: '3 results'
         }
       })
-      .state('app.search.results.details', {
-        url: '/:index/:code',
-        templateUrl: 'modules/app/search/results/details.html',
-        controller: 'AppSearchResultsDetailsCtrl'
+      .state('app.search.results.list.details', {
+        url: '/:index',
+        templateUrl: 'modules/app/search/results/list/details.html',
+        controller: 'AppSearchResultsListDetailsCtrl'
       })
       .state('app.schedule', {
         url: '/schedule',
         templateUrl: 'modules/app/schedule.html',
+        controller: 'AppScheduleCtrl',
         data: {
           title: 'Schedule'
-        },
-        controller: 'AppScheduleCtrl'
+        }
       });
 
     // For any unmatched url, send to a default route
