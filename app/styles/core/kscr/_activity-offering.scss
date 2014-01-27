@@ -7,7 +7,6 @@ $ns: '.kscr-ActivityOffering';
 
   &:hover {
     background-color: tint($accent-color, 80%);
-  }
 }
 
 #{$ns}--selected {
@@ -17,7 +16,7 @@ $ns: '.kscr-ActivityOffering';
 
   &, &:hover {
     background-color: tint($accent-color, 70%);
-  }
+
 }
 
 #{$ns}--unselectable {
