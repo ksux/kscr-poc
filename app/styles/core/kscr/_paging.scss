@@ -10,10 +10,12 @@ $ns: '.kscr-Paging';
   //padding: 0.5rem;
   text-decoration: none;
   color: #0088CC;
-  }
 
   & + #{$ns}-navItem {
     margin-left: 1rem;
   }
 }
 
+#{$ns}-navItem--disabled {
+  color: #ccc;
+}

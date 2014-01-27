@@ -8,15 +8,15 @@ $ns: '.kscr-ActivityOffering';
   &:hover {
     background-color: tint($accent-color, 80%);
 }
+}
 
 #{$ns}--selected {
   //background-color: tint(yellow, 70%);
   background-color: tint($accent-color, 70%);
-}
 
   &, &:hover {
     background-color: tint($accent-color, 70%);
-
+  }
 }
 
 #{$ns}--unselectable {
