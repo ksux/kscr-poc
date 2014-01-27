@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('termsService', function ($resource, config) {
-    return $resource(config.apiBase + 'terms', {}, {
+  .factory('termsService', function ($resource, apiService) {
+    return $resource(apiService.get('terms'), {}, {
       query: {
         method: 'GET',
         cache: true,

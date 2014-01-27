@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('regGroupService', function ($http, config, $q, orderByFilter) {
+  .factory('regGroupService', function ($http, apiService, $q, orderByFilter) {
 
     // Indicate if all items in one array is found in another.
     function arrayHasValues(arr, items) {
@@ -15,51 +15,61 @@ angular.module('kscrPocApp')
       return true;
     }
 
-    //
-    // Generates object similar to:
-    //
-
-    /*
-    {
-      activityOfferingTypes: [ // Sorted by priority
-        {
-          name: '',
-          description: '',
-          activityOfferings: [ // Sorted by meeting daytime
-            {
-              isSelected: true,
-              isSelectable: true, // false if this AO isn't in the selectable Reg Group list
-              ...
-            }
-          ]
-        }
-      ],
-      selectableRegGroupIds: [] // When length === 1, that's the only choice.
-    }
-    */
-
-    // Get all the Reg Groups for a certain Course Offering.
-    function getRegGroups(params, defaultAOIds, selectedAOIds) {
-      // Configure the parameters.
-      var httpConfig = {
+    function configHttp(params) {
+      return {
         params: params,
         cache: true
       };
+    }
+
+    function filterRegGroupsByActivityOfferingIds(params, activityOfferingIds) {
+      // Configure the parameters.
+      var httpConfig = configHttp(params);
+      // Call the service.
+      var regGroupsResource = $http.get(apiService.get('reggroups'), httpConfig);
+
+      // Process and return filtered Reg Groups.
+      return regGroupsResource.then(function(results) {
+        var filteredRegGroups = [];
+        angular.forEach(results.data, function(regGroup) {
+          // Keep a Reg Group if it contains all the Activity Offering Ids indicated.
+          if( arrayHasValues(regGroup.activityOfferingIds, activityOfferingIds) ) {
+            filteredRegGroups.push(regGroup);
+          }
+        });
+        return filteredRegGroups;
+      });
+    }
+
+    // Return a RegGroupId only if it's an absolute match.
+    function getMatchingRegGroupId(params, activityOfferingIds) {
+      return filterRegGroupsByActivityOfferingIds(params, activityOfferingIds).then(function(results) {
+        if( results.length === 1 ) {
+          return results[0].regGroupId;
+        }
+        return null;
+      });
+    }
+
+    // Find all secondary Activity Offerings and group them by Activity Type.
+    function getGroupedSecondaryActivityOfferings(params, defaultAOIds) {
+      // Configure the parameters.
+      var httpConfig = configHttp(params);
+      // Transform into an array.
       defaultAOIds = angular.isArray(defaultAOIds) ? defaultAOIds : [ defaultAOIds ];
-      selectedAOIds = angular.isArray(selectedAOIds) ? selectedAOIds : [ selectedAOIds ];
 
       // Call all services.
       // We must use $http, because $resource doesn't return promises.
-      var regGroupsResource = $http.get(config.apiBase + 'reggroups', httpConfig);
-      var activityOfferingsResource = $http.get(config.apiBase + 'activityofferings', httpConfig);
-      var activityTypesResource = $http.get(config.apiBase + 'activitytypes', httpConfig);
+      var regGroupsResource = filterRegGroupsByActivityOfferingIds(params, defaultAOIds);
+      var activityOfferingsResource = $http.get(apiService.get('activityofferings'), httpConfig);
+      var activityTypesResource = $http.get(apiService.get('activitytypes'), httpConfig);
       // Group the resources.
       var resources = [regGroupsResource, activityOfferingsResource, activityTypesResource];
       
       // Wait for the promises to be resolved.
       return $q.all(resources).then(function(results) {
         // Pull out the results.
-        var regGroupsData = results[0].data;
+        var regGroupsData = results[0];
         var activityOfferingsData = results[1].data;
         var activityTypesData = results[2].data;
 
@@ -67,43 +77,12 @@ angular.module('kscrPocApp')
         // Index
         //
 
-        var potentialRegGroups = [];
+        // Index all Activity Offerings in these Reg Groups.
         var associatedAOIdsIndex = {};
-        var selectedAOIdsIndex = {};
-        var selectableAOIdsIndex = {};
-
-        // Loop through all Reg Group objects.
         angular.forEach(regGroupsData, function(regGroup) {
-          // Keep a Reg Group if it contains all the Activity Offering Ids indicated.
-          if( arrayHasValues(regGroup.activityOfferingIds, defaultAOIds) ) {
-
-            // Checks if this Reg Group matches the selected Activity Offerings.
-            var regGroupHasSelectedAOs = arrayHasValues(regGroup.activityOfferingIds, selectedAOIds);
-
-            // Store references to all the Reg Groups
-            // that have Activity Offering Ids matching those selected.
-            if( regGroupHasSelectedAOs ) {
-              potentialRegGroups.push(regGroup.regGroupId);
-            }
-
-            // Store all the Activity Offering Ids associated with these Reg Groups.
-            angular.forEach(regGroup.activityOfferingIds, function(aoId) {
-
-              // Index all Activity Offerings in these Reg Groups.
-              associatedAOIdsIndex[aoId] = true;
-
-              // Index all selected Activity Offerings.
-              if( arrayHasValues(selectedAOIds, aoId) ) {
-                selectedAOIdsIndex[aoId] = true;
-              }
-
-              // Only Activity Offerings in Reg Groups that contain
-              // the selected Activity Offerings are selectable.
-              if( regGroupHasSelectedAOs ) {
-                selectableAOIdsIndex[aoId] = true;
-              }
-            });
-          }
+          angular.forEach(regGroup.activityOfferingIds, function(aoId) {
+            associatedAOIdsIndex[aoId] = true;
+          });
         });
 
         //
@@ -151,13 +130,6 @@ angular.module('kscrPocApp')
         // Process indexes.
         angular.forEach(activityOfferingsData, function(ao) {
 
-          // Indicates that this Activity Offering is selected.
-          ao.isSelected = selectedAOIdsIndex[ao.activityOfferingId] === true;
-
-          // Indicates that this Activity Offering can be selected,
-          // since it is associated with a possible Reg Group.
-          ao.isSelectable = selectableAOIdsIndex[ao.activityOfferingId] === true;
-
           // Index Activity Offerings by id.
           aoIndexById[ ao.activityOfferingId ] = ao;
           
@@ -173,11 +145,7 @@ angular.module('kscrPocApp')
         // Prepare return data
         //
 
-        // Prepare the return data.
-        var data = {
-          activityOfferingTypes: [],
-          selectedRegGroupId: null
-        };
+        var data = [];
 
         // Group all sorted Activity Offerings by sorted Activity Offering Types.
         angular.forEach(activityTypesData, function(activityType) {
@@ -191,15 +159,11 @@ angular.module('kscrPocApp')
           }
 
           // Add the Type.
-          data.activityOfferingTypes.push({
+          data.push({
             name: typeName,
             description: activityType.description,
             activityOfferings: activityOfferings
           });
-
-          if( potentialRegGroups.length === 1 ) {
-            data.selectedRegGroupId = potentialRegGroups[0];
-          }
         });
 
         return data;
@@ -208,10 +172,12 @@ angular.module('kscrPocApp')
 
     return {
       // @param params Object
-      // @param defaultAOIds String/Array
-      // @param selectedAOIds String/Array (optional)
-      get: function(params, defaultAOIds, selectedAOIds) {
-        return getRegGroups(params, defaultAOIds, selectedAOIds);
+      // @param activityOfferingIds String/Array
+      get: function(params, activityOfferingIds) {
+        return getGroupedSecondaryActivityOfferings(params, activityOfferingIds);
+      },
+      getMatchingRegGroupId: function(params, activityOfferingIds) {
+        return getMatchingRegGroupId(params, activityOfferingIds);
       }
     };
   });

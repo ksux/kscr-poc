@@ -1,29 +1,37 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .factory('primaryActivityOfferingService', function ($resource, config, pagingService, namecaseFilter) {
+  .factory('primaryActivityOfferingService', function ($resource, apiService, pagingService, namecaseFilter) {
 
     // Initiate or get the paging service instance.
-    // Clean it out, in case there's old data.
-    var paging = pagingService.get('primaryActivityOffering').clean();
+    var paging = pagingService.get('primaryActivityOffering');
 
-    return $resource(config.apiBase + 'courseofferings/primaryactivities', {}, {
+    return $resource(apiService.get('primaryactivities'), {}, {
       // Override the default query method so the response can be transformed.
       query: {
         method: 'GET',
         cache: true,
         transformResponse: function(data) {
+
+          // Clean the paging service.
+          paging.clean();
+
           // Convert the raw data string to native objects.
           data = angular.fromJson(data);
-          // The destination array for the transform.
-          // Base-1, not base-0.
-          var index = 1;
+
+          // Assign an index to all items.
+          var index = 0;
 
           for( var i = 0, il = data.length; i < il; i++ ) {
             var courseOffering = data[i];
 
-            for( var j = 0, jl = courseOffering.primaryActivityOfferingInfo.length; j < jl; j++, index++ ) {
+            for( var j = 0, jl = courseOffering.primaryActivityOfferingInfo.length; j < jl; j++ ) {
               var primaryActivityOffering = courseOffering.primaryActivityOfferingInfo[j];
+
+              // Ignore all draft Activity Offerings.
+              if( primaryActivityOffering.activityOfferingState === 'kuali.lui.activity.offering.state.draft' ) {
+                continue;
+              }
 
               // Add in first, last, and full names for instructors, if there's a display name.
               for( var k = 0, kl = primaryActivityOffering.instructors.length; k < kl; k++ ) {
@@ -40,6 +48,10 @@ angular.module('kscrPocApp')
                   angular.extend(primaryActivityOffering.instructors[k], names);
                 }
               }
+
+              // Base-1, not base-0 index.
+              index++;
+
               // Start with a basic object with the incremented index.
               var obj = {
                 index: index,
@@ -47,6 +59,7 @@ angular.module('kscrPocApp')
                 creditType: 'fixed',
                 fixedCredits: parseFloat(courseOffering.courseOfferingInfo.courseOfferingCreditOptionDisplay)
               };
+
               // Merge the basic object with the course offering and activity offering data.
               angular.extend(obj, courseOffering.courseOfferingInfo);
               angular.extend(obj, primaryActivityOffering);

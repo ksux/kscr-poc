@@ -1,9 +1,10 @@
 $ns: '.kscr-Header';
 
 #{$ns} {
+
   background-color: $header-color;
-        background-image: url("http://env2.ks.kuali.org/rice-portal/images/os-guy.gif");
-      background-repeat: no-repeat;
+  background-image: url("http://env2.ks.kuali.org/rice-portal/images/os-guy.gif");
+  background-repeat: no-repeat;
   border-bottom: 2px solid $border-color-normal;
   padding: 0.5em;
   font-weight: bold;

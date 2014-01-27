@@ -25,22 +25,26 @@ angular.module('kscrPocApp', [
         controller: 'AppCtrl'
       })
       .state('app.search', {
-        abstract: true,
-        template: '<div ui-view></div>'
-      })
-      .state('app.search.query', {
         url: '/search',
-        templateUrl: 'modules/app/search/query.html',
+        templateUrl: 'modules/app/search.html',
         data: {
           title: 'Search'
-        },
-        controller: 'AppSearchQueryCtrl'
+        }
       })
       .state('app.search.results', {
-        abstract: true,
-        url: '/results',
-        templateUrl: 'modules/app/search/results.html',
-        controller: 'AppSearchResultsCtrl'
+        url: '/:termCode/:query',
+        template: '<div ui-view></div>',
+        controller: 'AppSearchResultsCtrl',
+        data: {
+          title: 'Searching'
+        }
+      })
+      .state('app.search.results.empty', {
+        url: '',
+        templateUrl: 'modules/app/search/results/empty.html',
+        data: {
+          title: 'No results'
+        }
       })
       .state('app.search.results.list', {
         url: '',
@@ -49,23 +53,25 @@ angular.module('kscrPocApp', [
           title: '3 results'
         }
       })
-      .state('app.search.results.details', {
-        url: '/:index/:code',
-        templateUrl: 'modules/app/search/results/details.html',
-        controller: 'AppSearchResultsDetailsCtrl'
+      .state('app.search.results.list.details', {
+        url: '/:index',
+        templateUrl: 'modules/app/search/results/list/details.html',
+        controller: 'AppSearchResultsListDetailsCtrl'
       })
-      .state('app.search.results.activity', {
-        url: '/activity',
-        templateUrl: 'modules/app/search/results/details/activities.html',
-        controller: 'AppSearchResultsDetailsActivitiesCtrl'
+      .state('app.cart', {
+        url: '/cart',
+        templateUrl: 'modules/app/cart.html',
+        data: {
+          title: 'Cart'
+        }
       })
       .state('app.schedule', {
         url: '/schedule',
         templateUrl: 'modules/app/schedule.html',
+        controller: 'AppScheduleCtrl',
         data: {
           title: 'Schedule'
-        },
-        controller: 'AppScheduleCtrl'
+        }
       });
 
     // For any unmatched url, send to a default route
@@ -102,7 +108,7 @@ angular.module('kscrPocApp', [
     };
 
     // Registering the default dynamic states.
-    registerSref('app.search', 'app.search.query');
+    registerSref('app.search', 'app.search');
 
     // Whenver the state changes, override the dynamic href
     // generated for any of the decendants of the base state.
@@ -136,6 +142,6 @@ angular.module('kscrPocApp', [
     });
 
     // Override the default cache.
-    $http.defaults.cache = defaultCache;
+    //$http.defaults.cache = defaultCache;
 
   });

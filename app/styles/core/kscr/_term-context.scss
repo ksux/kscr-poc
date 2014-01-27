@@ -1,15 +1,10 @@
 $ns: '.kscr-TermContext';
 
 #{$ns} {
-  border-top: 1px solid #ccc;
-  margin-top: 0.5rem;
-  padding: 0.5rem 0.5rem 0;
+  padding: 0.5rem 0;
 }
 
-#{$ns}-current {
-  align-items: center;
-  display: flex;
-  margin: 0;
+#{$ns}-label {
 }
 
 #{$ns}-currentLabel {
@@ -18,5 +13,8 @@ $ns: '.kscr-TermContext';
 
 #{$ns}-currentChange {
 color: #0088CC;
+}
+
+#{$ns}-change {
   font-size: rem-calc(14);
 }

@@ -1,6 +1,13 @@
 $ns: '.kscr-ActivityOffering';
 
 #{$ns} {
+  padding: 0.5em 0.5em 0.5em 0;
+  //margin: 0 0.5em;
+  //margin-right: 0.5em;
+
+  &:hover {
+    background-color: tint($accent-color, 80%);
+  }
 }
 
 #{$ns}--selected {
@@ -8,6 +15,16 @@ $ns: '.kscr-ActivityOffering';
   background-color: tint($accent-color, 70%);
 }
 
+  &, &:hover {
+    background-color: tint($accent-color, 70%);
+  }
+}
+
 #{$ns}--unselectable {
   color: #ccc;
+}
+
+#{$ns}-item {
+  font-size: 14px;
+  margin: 0 0.5rem;
 }
