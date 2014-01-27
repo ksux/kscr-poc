@@ -30,7 +30,8 @@ angular.module('kscrPocApp')
         termCode: $scope.selectedTerm.termCode,
         query: $scope.searchCriteria.query
       };
-      $state.go('app.search.results', params);
+      // Force a reload, even if the parameters haven't changed.
+      $state.go('app.search.results.list', params, { reload: true });
     };
 
     function updateSelectedTerm(termId) {

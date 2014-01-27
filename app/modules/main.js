@@ -32,9 +32,15 @@ angular.module('kscrPocApp', [
         }
       })
       .state('app.search.results', {
+        abstract: true,
         url: '/:termCode/:query',
         template: '<div ui-view></div>',
-        controller: 'AppSearchResultsCtrl',
+        controller: 'AppSearchResultsCtrl'
+      })
+      .state('app.search.results.list', {
+        url: '',
+        templateUrl: 'modules/app/search/results/list.html',
+        controller: 'AppSearchResultsListCtrl',
         data: {
           title: 'Searching'
         }
@@ -44,14 +50,6 @@ angular.module('kscrPocApp', [
         templateUrl: 'modules/app/search/results/empty.html',
         data: {
           title: 'No results'
-        }
-      })
-      .state('app.search.results.list', {
-        url: '',
-        templateUrl: 'modules/app/search/results/list.html',
-        controller: 'AppSearchResultsListCtrl',
-        data: {
-          title: 'Results'
         }
       })
       .state('app.search.results.list.details', {
@@ -117,7 +115,7 @@ angular.module('kscrPocApp', [
     // Register a dynamic state reference.
     function registerSref(stateName, toState, toParams) {
       $rootScope.srefs[stateName] = $state.href(toState, toParams);
-    };
+    }
 
     // Registering the default dynamic states.
     registerSref('app.search', 'app.search');
