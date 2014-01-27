@@ -170,6 +170,17 @@ angular.module('kscrPocApp')
       });
     }
 
+    function register(regGroupId, userId) {
+      // Configure the parameters.
+      var params = {
+        regGroupId: regGroupId,
+        userId: userId
+      };
+      var httpConfig = configHttp(params);
+      // Call the service.
+      return $http.get(apiService.get('registerreggroup'), httpConfig);
+    }
+
     return {
       // @param params Object
       // @param activityOfferingIds String/Array
@@ -178,6 +189,9 @@ angular.module('kscrPocApp')
       },
       getMatchingRegGroupId: function(params, activityOfferingIds) {
         return getMatchingRegGroupId(params, activityOfferingIds);
+      },
+      register: function(regGroupId, userId) {
+        return register(regGroupId, userId);
       }
     };
   });

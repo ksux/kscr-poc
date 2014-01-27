@@ -116,6 +116,14 @@ angular.module('kscrPocApp')
     //
 
     $scope.register = function() {
+      // Make sure there's a Reg Group Id to register.
+      if( !$scope.hasSelectedRegGroupId ) {
+        return;
+      }
+      regGroupService.register($scope.selectedRegGroupId, 'admin').success(function(data) {
+        // Registration request successfully submitted.
+        console.log('submitted registration for', $scope.selectedRegGroupId);
+      });
     };
 
   });
