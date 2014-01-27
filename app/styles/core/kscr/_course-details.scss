@@ -1,0 +1,63 @@
+$ns: '.kscr-course-details';
+
+#{$ns} {
+  //border-top: 1px solid #ccc;
+  border-width: 2px;
+  border-style: solid;
+  border-color: $border-color-active;
+  border-radius: $border-radius;
+  list-style-type: none;
+  margin: -10px;
+  //width: 20em;
+  background-color: darken($body-bg, 5%);
+  font-size: 1.1em;
+}
+
+#{$ns}-header {
+	background-color: $header-secondary-color;
+	border-top-right-radius: ($border-radius - 2px);
+  border-top-left-radius: ($border-radius - 2px);
+  display:inline-flex;
+  width:100%;
+	//margin-top:-4px;
+
+}
+
+#{$ns}-headline{
+  padding: 5px;
+  flex: 1;
+}
+
+#{$ns}-body{
+  padding: 0 5px 0 10px;
+  p{
+  padding-left: 10px;
+  }
+  h3{
+  font-weight: bold;
+  padding-left: 5px;
+  }
+}
+
+#{$ns}-register{
+      //float:right;
+     // border-left: 3px dotted #808080;
+      margin-left: 1em;
+    
+}
+
+additionalActivities{
+  padding-left: 10px;
+}
+
+#{$ns}-additional-list{
+
+  ul, li{
+    font-size:1em;
+    list-style:none;
+    list-style-type: none;
+  }
+  input[type="radio"] {
+    margin: 6px 6px 0 0;
+  }
+}

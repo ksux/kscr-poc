@@ -4,7 +4,8 @@ $ns: '.kscr-ActivityOffering';
 }
 
 #{$ns}--selected {
-  background-color: tint(yellow, 70%);
+  //background-color: tint(yellow, 70%);
+  background-color: tint($accent-color, 70%);
 }
 
 #{$ns}--unselectable {

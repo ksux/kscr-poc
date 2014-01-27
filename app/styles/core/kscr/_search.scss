@@ -1,13 +1,10 @@
-$ns: '.kscr-Search';
+$ns: '.kscr-Searchs';
 
 #{$ns} {
-  background-color: #fff;
-  border: 1px solid gray;
-  padding: 0 0.5em 0.5em;
-  position: absolute;
+  background-color: tint($primary-color, 90%);
+  border-bottom: 1px solid $border-color-normal;
+  padding: 0.5em;
   right: 0;
-  width: 20em;
-  z-index: 2;
 }
 
 #{$ns}-label {
