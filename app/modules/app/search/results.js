@@ -15,9 +15,9 @@ angular.module('kscrPocApp')
     };
 
     // Search.
-    primaryActivityOfferingService.query(params, function(results) {
+    $scope.results = primaryActivityOfferingService.query(params, function(results) {
       // Process the results.
-      $scope.results = results;
+      //$scope.results = results;
       var hasResults = results.itemCount > 0;
       // Redirect appropriately.
       $state.go( 'app.search.results.' + (hasResults ? 'list' : 'empty'), $stateParams );

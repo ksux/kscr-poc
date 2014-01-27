@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title ng-bind="pageTitle"></title>
+    <title ng-bind-html="pageTitle"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -54,20 +54,22 @@
         <script src="modules/main.js"></script>
         <script src="modules/shared/filters/credits.js"></script>
         <script src="modules/shared/filters/days.js"></script>
-        <script src="modules/shared/filters/timeRange.js"></script>
-        <script src="modules/shared/filters/meetingTimes.js"></script>
         <script src="modules/shared/filters/instructors.js"></script>
+        <script src="modules/shared/filters/meetingTimes.js"></script>
         <script src="modules/shared/filters/namecase.js"></script>
+        <script src="modules/shared/filters/pluralize.js"></script>
+        <script src="modules/shared/filters/timeRange.js"></script>
         <script src="modules/shared/services/api-service.js"></script>
-        <script src="modules/shared/services/schedule-service.js"></script>
-        <script src="modules/shared/services/primary-activity-offering-service.js"></script>
         <script src="modules/shared/services/config.js"></script>
-        <script src="modules/shared/services/terms-service.js"></script>
         <script src="modules/shared/services/paging-service.js"></script>
+        <script src="modules/shared/services/primary-activity-offering-service.js"></script>
         <script src="modules/shared/services/reg-group-service.js"></script>
+        <script src="modules/shared/services/schedule-service.js"></script>
+        <script src="modules/shared/services/terms-service.js"></script>
         <script src="modules/app.js"></script>
         <script src="modules/app/schedule.js"></script>
         <script src="modules/app/search/results.js"></script>
+        <script src="modules/app/search/results/list.js"></script>
         <script src="modules/app/search/results/list/details.js"></script>
         <!-- endbuild -->
 </body>

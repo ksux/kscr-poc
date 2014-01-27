@@ -49,14 +49,18 @@ angular.module('kscrPocApp', [
       .state('app.search.results.list', {
         url: '',
         templateUrl: 'modules/app/search/results/list.html',
+        controller: 'AppSearchResultsListCtrl',
         data: {
-          title: '3 results'
+          title: 'Results'
         }
       })
       .state('app.search.results.list.details', {
         url: '/:index',
         templateUrl: 'modules/app/search/results/list/details.html',
-        controller: 'AppSearchResultsListDetailsCtrl'
+        controller: 'AppSearchResultsListDetailsCtrl',
+        data: {
+          title: 'Result'
+        }
       })
       .state('app.cart', {
         url: '/cart',
@@ -84,12 +88,20 @@ angular.module('kscrPocApp', [
     $rootScope.pageTitle = pageTitle;
 
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-      var titles = [pageTitle];
-      if(angular.isDefined(toState.data) && angular.isDefined(toState.data.title)) {
-        titles.unshift(toState.data.title);
-      }
-      $rootScope.pageTitle = titles.join(' - ');
+      updateStateTitle(toState);
     });
+
+    $rootScope.$on('updateStateTitle', function (event, state) {
+      updateStateTitle(state);
+    });
+
+    function updateStateTitle(state) {
+      var titles = [pageTitle];
+      if(angular.isDefined(state.data) && angular.isDefined(state.data.title)) {
+        titles.unshift(state.data.title);
+      }
+      $rootScope.pageTitle = titles.join(' &mdash; ');
+    }
 
     // Until the `ui-sref` directive allows dynamic state references,
     // we need to manually store and trigger dynamic states.

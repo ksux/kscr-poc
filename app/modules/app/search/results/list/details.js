@@ -17,6 +17,14 @@ angular.module('kscrPocApp')
     }
 
     //
+    // Update page title.
+    //
+
+    var state = $state.current;
+    state.data.title = $scope.item.courseOfferingCode;
+    $scope.$emit('updateStateTitle', state);
+
+    //
     // Grading options.
     //
 
