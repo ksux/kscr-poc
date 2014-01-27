@@ -4,5 +4,8 @@ angular.module('kscrPocApp')
   .value('config', {
     apiBase: 'http://env2.ks.kuali.org/services/',
     apiScheduleOfClassesBase: 'ScheduleOfClassesService/',
-    apiCourseRegistrationBase: 'CourseRegistrationClientService/'
+    apiCourseRegistrationBase: 'CourseRegistrationClientService/',
+    userId: 'admin',
+    termCode: '201201',
+    query: 'CHEM237'
   });

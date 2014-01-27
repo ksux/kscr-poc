@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppCtrl', function ($scope, $state, termsService) {
+  .controller('AppCtrl', function ($scope, $state, termsService, config) {
     // Default values
     $scope.searchCriteria = {
-      termCode: '201201',
-      query: 'CHEM237'
+      termCode: config.termCode,
+      query: config.query
     };
     // Toggle the visibility of the global search interface.
     $scope.showSearch = false;

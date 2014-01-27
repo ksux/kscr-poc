@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppSearchResultsListDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService) {
+  .controller('AppSearchResultsListDetailsCtrl', function ($scope, $state, $stateParams, pagingService, regGroupService, config) {
 
     // Initiates during normal app use.
     initiate();
@@ -105,7 +105,9 @@ angular.module('kscrPocApp')
         regGroupService.getMatchingRegGroupId(params, selectedAOIds).then(function(result) {
           $scope.hasSelectedRegGroupId = angular.isString(result);
           $scope.selectedRegGroupId = result;
-          console.log('selected reg group', result);
+          if( $scope.hasSelectedRegGroupId ) {
+            console.log('selected reg group', result);
+          }
         });
       };
 
@@ -120,7 +122,7 @@ angular.module('kscrPocApp')
       if( !$scope.hasSelectedRegGroupId ) {
         return;
       }
-      regGroupService.register($scope.selectedRegGroupId, 'admin').success(function(data) {
+      regGroupService.register($scope.selectedRegGroupId, config.userId).success(function(data) {
         // Registration request successfully submitted.
         console.log('submitted registration for', $scope.selectedRegGroupId);
       });
