@@ -11,11 +11,12 @@
         ng-href="{{srefs['app.search']}}">Search</a>
       <a
         class="kscr-Nav-item"
-        ui-sref="app.cart">Cart</a>
+        ui-sref="app.cart"
+        ui-sref-active="kscr-Nav-item--active">Cart</a>
       <a
         class="kscr-Nav-item"
-        ng-class="{ 'kscr-Nav-item--active': $state.includes('app.schedule') }"
-        ui-sref="app.schedule">Schedule</a>
+        ui-sref="app.schedule"
+        ui-sref-active="kscr-Nav-item--active">Schedule</a>
     </nav>
 
   </div>
