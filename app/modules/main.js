@@ -115,8 +115,8 @@ angular.module('kscrPocApp', [
     $rootScope.srefs = {};
 
     // Register a dynamic state reference.
-    var registerSref = function(baseStateName, toState, toParams) {
-      $rootScope.srefs[baseStateName] = $state.href(toState, toParams);
+    function registerSref(stateName, toState, toParams) {
+      $rootScope.srefs[stateName] = $state.href(toState, toParams);
     };
 
     // Registering the default dynamic states.
