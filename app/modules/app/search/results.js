@@ -15,12 +15,15 @@ angular.module('kscrPocApp')
     };
 
     // Search.
-    primaryActivityOfferingService.query(params, function(results) {
-      // Process the results.
-      $scope.results = results;
-      var hasResults = results.itemCount > 0;
+    $scope.results = primaryActivityOfferingService.query(params, function(results) {
       // Redirect appropriately.
-      $state.go( 'app.search.results.' + (hasResults ? 'list' : 'empty'), $stateParams );
+      var hasResults = results.itemCount > 0;
+      if( hasResults ) {
+        $scope.$broadcast('searchResultsChanged');
+      }
+      else {
+        $state.go('app.search.results.empty');
+      }
     });
 
   });

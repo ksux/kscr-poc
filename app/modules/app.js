@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('kscrPocApp')
-  .controller('AppCtrl', function ($scope, $state, termsService) {
+  .controller('AppCtrl', function ($scope, $state, termsService, config) {
     // Default values
     $scope.searchCriteria = {
-      termId: 'kuali.atp.2012Spring',
-      query: 'CHEM237'
+      termCode: config.termCode,
+      query: config.query
     };
     // Toggle the visibility of the global search interface.
     $scope.showSearch = false;
@@ -13,9 +13,8 @@ angular.module('kscrPocApp')
     $scope.selectedTerm = null;
 
     // Acquire all active terms.
-    termsService.query({ active: true }, function(results) {
-      $scope.terms = results;
-      updateSelectedTerm($scope.searchCriteria.termId);
+    $scope.terms = termsService.query({ active: true }, function() {
+      updateSelectedTerm($scope.searchCriteria.termCode);
     });
 
     // Because we want to select terms using a string model, instead
@@ -25,24 +24,35 @@ angular.module('kscrPocApp')
       updateSelectedTerm(newValue);
     });
 
+    // `termCode` is just as much an authority as `termId` regarding context.
+    // This is used most often in the URL, for deep linking.
+    $scope.$watch('searchCriteria.termCode', function(newValue) {
+      updateSelectedTerm(newValue);
+    });
+
     $scope.query = function() {
       var params = {
         termCode: $scope.selectedTerm.termCode,
         query: $scope.searchCriteria.query
       };
-      $state.go('app.search.results', params);
+      // Force a reload, even if the parameters haven't changed.
+      $state.go('app.search.results.list', params, { reload: true });
     };
 
-    function updateSelectedTerm(termId) {
-      // Ignore if the term data has yet to be returned.
-      if( !angular.isArray($scope.terms) ) {
+    function updateSelectedTerm(termIdOrCode) {
+      // Ignore if the term data has yet to be returned,
+      // or if the value is undefined.
+      if( !angular.isArray($scope.terms) || angular.isUndefined(termIdOrCode) ) {
         return;
       }
-      // Store the appropriate term object.
+
+      // Store the appropriate term data whenever a part of it changes.
       for( var i = 0, l = $scope.terms.length; i < l; i++ ) {
         var term = $scope.terms[i];
-        if( term.termId === termId ) {
+        if( term.termId === termIdOrCode || term.termCode === termIdOrCode ) {
           $scope.selectedTerm = term;
+          $scope.searchCriteria.termId = term.termId;
+          $scope.searchCriteria.termCode = term.termCode;
           return;
         }
       }

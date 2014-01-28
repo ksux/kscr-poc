@@ -1,16 +1,16 @@
-<div class="kscr-Search">
+<form class="kscr-Search" ng-submit="query()">
 
-  <div class="kscr-Search-item kscr-TermContext util-Grid">
-    <span class="kscr-TermContext-label util-Grid-cell">{{selectedTerm.termName}}</span>
-    <a class="kscr-TermContext-change">change term</a>
+  <div class="kscr-Search-item util-Grid">
+    <label for="searchTerm" class="util-Visibility--screenReadersOnly">Term</label>
+    <select id="searchTerm" ng-model="searchCriteria.termId" ng-options="t.termId as t.termName for t in terms"></select>
   </div>
 
-  <form class="kscr-Search-item kscr-Query util-Grid" ng-submit="query()">
+  <div class="kscr-Search-item kscr-Query util-Grid">
     <label for="searchInput" class="kscr-Query-label util-Visibility--screenReadersOnly">Courses</label>
     <input id="searchInput" type="text" class="kscr-Query-input util-Grid-cell" placeholder="ENGL, ENGL2, ENGL200" ng-model="searchCriteria.query"/>
     <button type="submit" class="kscr-Query-button">Go</button>
-  </form>
+  </div>
 
-</div>
+</form>
 
 <div ui-view></div>
