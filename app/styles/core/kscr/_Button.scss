@@ -1,25 +1,24 @@
 $ns: '.kscr-Button';
 
 #{$ns} {
-
 }
-  button[disabled]{
+
+button[disabled] {
   opacity: 0.5;
-  }
-
-#{$ns}-primary-button {
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
-    background-color: $primary-button-color; 
-    background-image: $primary-button-background-image;
-    border-color: $primary-button-border-color;
-    color: $primary-button-font-color;
-    text-shadow: $primary-button-text-shadow;
 }
 
+#{$ns}--primary {
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  background-color: $primary-button-color; 
+  background-image: $primary-button-background-image;
+  border-color: $primary-button-border-color;
+  color: $primary-button-font-color;
+  text-shadow: $primary-button-text-shadow;
+}
 
-#{$ns}-secondary-button{
+#{$ns}--secondary {
   background-color: #F5F5F5;
   background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
   background-repeat: repeat-x;
