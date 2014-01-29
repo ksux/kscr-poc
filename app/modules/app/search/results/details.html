@@ -1,4 +1,4 @@
-/*<nav class="util-Grid kscr-Paging">
+<nav class="util-Grid kscr-Paging">
   <div class="util-Grid-cell util-Grid">
     <span
       ng-pluralize
@@ -27,9 +27,9 @@
     <div class="kscr-course-details-headline">
       <h1>{{item.courseOfferingCode}} <strong>{{item.title}}</strong></h1>
     </div>
-    <div class="kscr-course-details-register">
+
       <button class="primary-button">Register</button>
-    </div>
+  
   </div>
   <div class="kscr-course-details-body">
   <div class="section-divider">
@@ -37,19 +37,18 @@
   
     <p>CHEM131, CHEM135, or CHEM146; and (CHEM132, CHEM136, or CHEM147)</p>
   </div>
-  <div class="section-divider">
+
     <h2><strong>Additional Grading Options</strong></h2>
     <div ng-switch on="hasAdditionalGradingOptions">
       <p ng-switch-when="true">{{additionalGradingOptions.join(', ')}}</p>
       <p ng-switch-when="false">No other grading options are available.</p>
     </div>
   </div>
-  <div class="section-divider">
+
     <h2><strong>Description</strong></h2>
     <p>The chemistry of carbons: aliphatic compounds, aromatic compounds, stereochemistry, arenes, halides, alcohols, esters, and spectroscopy.</p>
     <p>Crosslisted as CHEM233.</p>
-  </div>
-  <div class="section-divider">
+
     <div ng-if="hasSecondaryActivityOfferings">
       <h2><strong>Additional Activities</strong></h2>
       <div class="kscr-course-details-additionalActivities" ng-repeat="aoType in regGroups.activityOfferingTypes">
@@ -67,9 +66,9 @@
           </li>
         </ul>
       </div>
-      </div>
     </div>
+
   </div>
 </div>
 </section>
-*/
+
