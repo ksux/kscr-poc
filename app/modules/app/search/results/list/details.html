@@ -19,7 +19,29 @@
 </nav>
 
 <section class="kscr-Article">
-  <h1>{{item.courseOfferingCode}} <strong>{{item.courseOfferingDesc}}</strong></h1>
+
+  <header class="kscr-COItem-header">
+    <h1 class="kscr-COItem-headline">
+      <span
+        class="kscr-COItem-code">{{item.courseOfferingCode}}</span>
+      <span class="kscr-COItem-title">{{item.courseOfferingDesc}}</span>
+    </h1>
+    <span class="kscr-COItem-credits" ng-bind-html="item | credits"></span>
+  </header>
+  <div class="kscr-COItem-body">
+    <div ng-bind-html="item.schedule | meetingTimes"></div>
+    <span class="text-right"
+      ng-pluralize count="item.activityOfferingMaxSeats"
+      when="{'0': '&mdash;', '1': '1 seat', 'other': '{} seats'}"></span>
+  </div>
+  <div class="kscr-COItem-body">
+    <span>{{item.formatOfferingName}}</span>
+    <div class="text-right">
+      <div ng-repeat="instructor in item.instructors">
+        {{instructor.firstName}} {{instructor.lastName}}
+      </div>
+    </div>
+  </div>
 
   <form class="kscr-Register" ng-submit="register()">
     <div class="kscr-Register-activities"
