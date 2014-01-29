@@ -1,7 +1,7 @@
-$ns: '.kscr-schedule';
+$ns: '.kscr-Schedule';
 
 #{$ns} {
-  background-color: darken($body-bg, 5%);
+  background-color: $secondary-color;
 }
 
 #{$ns}-header {
