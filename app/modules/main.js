@@ -1,11 +1,8 @@
 'use strict';
 
 angular.module('kscrPocApp', [
-  'ngAnimate',
-  //'ngCookies',
   'ngResource',
   'ngSanitize',
-  //'ngRoute',
   'ngTouch',
   'ui.router',
   'jmdobry.angular-cache'
